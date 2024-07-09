@@ -3,11 +3,13 @@ import Link from "next/link";
 export default function Detail() {
   return (
     <div className="flex justify-center items-center">
-      <div className="w-[1000px] bg-slate-100 p-10">
+      <div className="w-[1000px] bg-default-color p-10">
         <div className="flex justify-between items-center p-3">
-          <h1 className="text-2xl">질문 및 후기</h1>
+          <h1 className="text-2xl">
+            <Link href={"/board"}>질문 및 후기</Link>
+          </h1>
           <Link
-            className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg bg-[#0090f9] rounded-md transition-all hover:bg-[#0073c6]"
+            className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
             href={"#"}
             title="글쓰기"
           >
@@ -26,7 +28,7 @@ export default function Detail() {
             <div className="flex justify-between p-3">
               <div className="flex gap-3">
                 <p>
-                  <span className="font-bold p-1 bg-slate-200 rounded-md">
+                  <span className="font-bold p-1 bg-default-color rounded-md">
                     고수
                   </span>
                   &nbsp;님
@@ -35,7 +37,7 @@ export default function Detail() {
               </div>
               <div className="flex items-center gap-3">
                 <button
-                  className=" hover:underline hover:text-[#0090f9]"
+                  className=" hover:underline hover:text-theme-color"
                   title="글 수정하기"
                 >
                   수정하기
@@ -66,11 +68,11 @@ export default function Detail() {
         <div className="bg-[#fefefe] p-3 m-3 rounded-md text-sm">
           <div className="flex justify-between items-center p-3">
             <textarea
-              className="bg-gray-100 w-[85%] p-2 text-sm resize-none outline-none overflow-hidden h-[90px]"
+              className="bg-default-color w-[85%] p-2 text-sm resize-none outline-none overflow-hidden h-[90px]"
               placeholder="내용을 입력해주세요"
             ></textarea>
             <button
-              className="bg-[#0090f9] rounded-md transition-all w-[120px] hover:bg-[#0073c6] text-gray-200 h-[90px]"
+              className="bg-theme-color rounded-md transition-all w-[120px] hover:bg-[#0073c6] text-gray-200 h-[90px]"
               title="댓글 등록하기"
             >
               등록하기
@@ -101,10 +103,10 @@ export default function Detail() {
               </li>
               <li className="w-[20%] text-gray-400">2024.07.08 15:00:09</li>
               <li className="w-[10%] flex justify-evenly">
-                <button className="p-1 hover:text-[#0073c6]" title="수정하기">
+                <button className="p-1 hover:text-theme-color" title="수정하기">
                   ✎
                 </button>
-                <button className="p-1 hover:text-[#0073c6]" title="삭제하기">
+                <button className="p-1 hover:text-theme-color" title="삭제하기">
                   ✕
                 </button>
               </li>

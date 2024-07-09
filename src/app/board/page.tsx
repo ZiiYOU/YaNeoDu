@@ -7,11 +7,11 @@ export const dynamic = "force-dynamic";
 export default function Board() {
   return (
     <div className="h-screen flex justify-center items-center">
-      <div className="w-[1000px] h-[700px] bg-slate-100 p-10">
+      <div className="w-[1000px] h-[700px] bg-default-color p-10">
         <div className="flex justify-between items-center p-3">
           <h1 className="text-2xl">질문 및 후기</h1>
           <Link
-            className="text-gray-200 text-sm pl-12 pr-12 pt-2 pb-2 bg bg-[#0090f9] rounded-md transition-all hover:bg-[#0073c6]"
+            className="text-gray-200 text-sm pl-12 pr-12 pt-2 pb-2 bg bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
             href={"#"}
           >
             글쓰기
