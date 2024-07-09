@@ -1,26 +1,11 @@
-"use client";
 
-import axios from 'axios';
-import { useEffect } from 'react';
-
+import LicensesList from '@/app/components/LicensesList';
 function myPage() {
-
-  useEffect(()=>{
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/licenses");
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [])
-  
-
   return (
-    <div>myPage</div>
+    <div>
+      <h3 className="font-bold text-4xl leading-[10rem] text-gray-800 text-center ">OOO님의 자격증 정보</h3>
+      <LicensesList />
+    </div>
   )
 }
 
