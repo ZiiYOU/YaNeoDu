@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 export default function Board() {
   return (
     <div className="h-screen flex justify-center items-center">
-      <div className="w-[900px] h-[600px] bg-slate-100 p-10">
+      <div className="w-[1000px] h-[700px] bg-slate-100 p-10">
         <div className="flex justify-between items-center p-3">
           <h1 className="text-2xl">질문 및 후기</h1>
           <Link
@@ -16,9 +16,9 @@ export default function Board() {
           </Link>
         </div>
         <div className="h-[1px] w-full ml-auto mr-auto bg-slate-300" />
-        <div className="bg-[#fefefe] p-3 m-3 rounded-md h-[410px]">
+        <div className="bg-[#fefefe] p-3 m-3 rounded-md h-[525px]">
           <div>
-            <ul className="text-[12px] flex border border-r-transparent border-l-transparent p-1 font-semibold">
+            <ul className="text-[12px] h-[50px] flex items-center border border-r-transparent border-l-transparent font-semibold">
               <li className="w-[15%] p-1 text-center">자격증</li>
               <li className="w-[10%] p-1 text-center">카테고리</li>
               <li className="w-[45%] p-1 text-center">제목</li>
@@ -30,7 +30,7 @@ export default function Board() {
           <div>
             {/* 게시물 목록이 들어오는 곳, 아래는 예시입니다. 최대 10개의 게시물이 한 페이지에 들어옵니다 */}
             <Link href={"#"}>
-              <ul className="text-[12px] flex p-1 border-b border-dotted">
+              <ul className="text-[12px] h-[45px] flex items-center border-b border-dotted">
                 <li className="w-[15%] p-1 text-center">전기기사</li>
                 <li className="w-[10%] p-1 text-center">질문</li>
                 <li className="w-[45%] p-1 text-left">안녕하세요</li>
