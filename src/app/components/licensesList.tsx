@@ -3,7 +3,8 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 
-function myPage() {
+
+function licensesList() {
 
   useEffect(()=>{
     const fetchData = async () => {
@@ -18,10 +19,9 @@ function myPage() {
     fetchData();
   }, [])
   
-
   return (
-    <div>myPage</div>
+    <div>licensesList</div>
   )
 }
 
-export default myPage
+export default licensesList
