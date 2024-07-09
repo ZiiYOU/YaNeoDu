@@ -2,6 +2,8 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
+/* post 경로명은 임시 경로명입니다. 고정 경로명으로 작업을 쉽게 하기 위함입니다. */
+
 export default function Board() {
   return (
     <div className="h-screen flex justify-center items-center">
@@ -9,7 +11,7 @@ export default function Board() {
         <div className="flex justify-between items-center p-3">
           <h1 className="text-2xl">질문 및 후기</h1>
           <Link
-            className="text-gray-200 text-sm pl-12 pr-12 pt-1 pb-1 bg bg-[#0090f9] rounded-md transition-all hover:bg-[#0073c6]"
+            className="text-gray-200 text-sm pl-12 pr-12 pt-2 pb-2 bg bg-[#0090f9] rounded-md transition-all hover:bg-[#0073c6]"
             href={"#"}
           >
             글쓰기
