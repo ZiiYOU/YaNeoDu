@@ -47,7 +47,7 @@ export default function Home() {
          🙋🏻‍♀ Q & A
          <button className="text-sm text-gray-600 cursor-pointer hover:text-theme-color">+ 더보기</button>
       </div>
-      <div className="w-4/5 h-72 px-4 py-4 flex flex-col gap-4 overflow-y-auto">
+      <div className="w-4/5 h-72 px-4 py-4 mb-10 flex flex-col gap-4 overflow-y-auto">
         <div className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
           <div className="w-full h-6/12 flex flex-row justify-between">
             <div className="text-md ">제목</div>
