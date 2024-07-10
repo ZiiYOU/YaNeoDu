@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link";
 import Select from 'react-select'
 
 export default function Write() {
@@ -12,6 +11,10 @@ export default function Write() {
     {value: "질문", label: "질문"},
     {value: "후기", label: "후기"},
   ]
+
+  /* const postUp = () => {
+
+  } */
 
   return (
     <>
