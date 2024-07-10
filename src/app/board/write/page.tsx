@@ -24,8 +24,8 @@ export default function Write() {
           <textarea className="bg-[#fefefe] p-2 rounded-md border h-[525px] resize-none w-full outline-none text-sm">
           </textarea>
           <div className="flex justify-end gap-3">
-            <button className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg bg-theme-color rounded-md transition-all hover:bg-[#0073c6]">등록하기</button>
-            <button className="text-sm text-center w-[120px] pt-2 pb-2 bg border rounded-md transition-all bg-[#fefefe] hover:bg-gray-200">취소</button>
+            <button className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]">등록하기</button>
+            <button className="text-sm text-center w-[120px] pt-2 pb-2 border rounded-md transition-all bg-[#fefefe] hover:bg-gray-200">취소</button>
           </div>
         </form>
       </div>

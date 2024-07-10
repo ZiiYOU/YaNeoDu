@@ -38,6 +38,12 @@ export default function Detail() {
               <div className="flex items-center gap-3">
                 <button
                   className=" hover:underline hover:text-theme-color"
+                  title="글 삭제하기"
+                >
+                  삭제하기
+                </button>
+                <button
+                  className=" hover:underline hover:text-theme-color"
                   title="글 수정하기"
                 >
                   수정하기

@@ -7,18 +7,18 @@ export const dynamic = "force-dynamic";
 export default function Board() {
   return (
     <div className="h-screen flex justify-center items-center">
-      <div className="w-[1000px] h-[700px] bg-default-color p-10">
+      <div className="w-[1000px] bg-default-color p-10">
         <div className="flex justify-between items-center p-3">
           <h1 className="text-2xl">질문 및 후기</h1>
           <Link
-            className="text-gray-200 text-sm pl-12 pr-12 pt-2 pb-2 bg bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
+            className="text-gray-200 text-sm p-2 pl-12 pr-12 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
             href={"#"}
           >
             글쓰기
           </Link>
         </div>
         <div className="h-[1px] w-full ml-auto mr-auto bg-slate-300" />
-        <div className="bg-[#fefefe] p-3 m-3 rounded-md h-[525px]">
+        <div className="bg-[#fefefe] p-3 mt-3 mb-3 rounded-md h-[525px]">
           <div>
             <ul className="text-[12px] h-[50px] flex items-center border border-r-transparent border-l-transparent font-semibold">
               <li className="w-[15%] p-1 text-center">자격증</li>
@@ -42,6 +42,25 @@ export default function Board() {
               </ul>
             </Link>
           </div>
+        </div>
+        <div>
+          <form className="flex gap-3 items-center justify-end">
+            <div className="flex gap-3">
+              <select name="자격증" id="license" className="w-[150px] h-[30px] text-sm p-1 outline-none rounded-md border">
+                <option value="select">자격증 목록</option>
+                <option value="전기기사">전기기사</option>
+              </select>
+              <select name="카테고리" id="category" className="w-[150px] h-[30px] text-sm p-1 outline-none rounded-md border">
+                <option value="select">카테고리 목록</option>
+                <option value="question">질문</option>
+                <option value="review">후기</option>
+              </select>
+            </div>
+            <div className="flex gap-3">
+              <input type="text" placeholder="찾아보기" className="w-[200px] text-sm p-1 outline-none rounded-md border" />
+              <button className="text-gray-200 bg-theme-color transition-all hover:bg-[#0073c6] text-sm p-1 outline-none rounded-md border w-[50px]">검색</button>
+            </div>
+          </form>
         </div>
         <div className="flex justify-center items-center text-sm">
           {/* 페이지네이션이 들어오는 곳 */}
