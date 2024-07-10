@@ -1,78 +1,72 @@
+"use client"
+
 import Link from "next/link";
+import Select from 'react-select'
+import SummaryPost from "../_components/SummaryPost";
 
 export const dynamic = "force-dynamic";
 
 /* post 경로명은 임시 경로명입니다. 고정 경로명으로 작업을 쉽게 하기 위함입니다. */
 
 export default function Board() {
+  const licenses = [
+    { value: "정보처리기사", label: "정보처리기사" },
+    { value: "전기기사", label: "전기기사" }
+  ]
+  const category = [
+    {value: "질문", label: "질문"},
+    {value: "후기", label: "후기"},
+  ]
+
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="w-[1000px] bg-default-color p-10">
-        <div className="flex justify-between items-center p-3">
-          <h1 className="text-2xl">질문 및 후기</h1>
-          <Link
-            className="text-gray-200 text-sm p-2 pl-12 pr-12 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
-            href={"#"}
-          >
-            글쓰기
-          </Link>
-        </div>
-        <div className="h-[1px] w-full ml-auto mr-auto bg-slate-300" />
-        <div className="bg-[#fefefe] p-3 mt-3 mb-3 rounded-md h-[525px]">
-          <div>
-            <ul className="text-[12px] h-[50px] flex items-center border border-r-transparent border-l-transparent font-semibold">
-              <li className="w-[15%] p-1 text-center">자격증</li>
-              <li className="w-[10%] p-1 text-center">카테고리</li>
-              <li className="w-[45%] p-1 text-center">제목</li>
-              <li className="w-[10%] p-1 text-center">글쓴이</li>
-              <li className="w-[12%] p-1 text-center">등록일</li>
-              <li className="w-[8%] p-1 text-center">조회수</li>
-            </ul>
-          </div>
-          <div>
-            {/* 게시물 목록이 들어오는 곳, 아래는 예시입니다. 최대 10개의 게시물이 한 페이지에 들어옵니다 */}
-            <Link href={"#"}>
-              <ul className="text-[12px] h-[45px] flex items-center border-b border-dotted">
-                <li className="w-[15%] p-1 text-center">전기기사</li>
-                <li className="w-[10%] p-1 text-center">질문</li>
-                <li className="w-[45%] p-1 text-left">안녕하세요</li>
-                <li className="w-[10%] p-1 text-center">뉴비</li>
-                <li className="w-[12%] p-1 text-center">2024.07.09</li>
-                <li className="w-[8%] p-1 text-center">999</li>
-              </ul>
-            </Link>
-          </div>
-        </div>
+    <>
+      <div className="flex justify-between items-center p-3">
+        <h1 className="text-2xl">질문 및 후기</h1>
+        <Link
+          className="text-gray-200 text-sm p-2 pl-12 pr-12 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
+          href={"/board/write"}
+        >
+          글쓰기
+        </Link>
+      </div>
+      <p className="h-[1px] w-full ml-auto mr-auto bg-slate-300"></p>
+      <div className="bg-[#fefefe] p-3 mt-3 mb-3 rounded-md h-[525px]">
         <div>
-          <form className="flex gap-3 items-center justify-end">
-            <div className="flex gap-3">
-              <select name="자격증" id="license" className="w-[150px] h-[30px] text-sm p-1 outline-none rounded-md border">
-                <option value="select">자격증 목록</option>
-                <option value="전기기사">전기기사</option>
-              </select>
-              <select name="카테고리" id="category" className="w-[150px] h-[30px] text-sm p-1 outline-none rounded-md border">
-                <option value="select">카테고리 목록</option>
-                <option value="question">질문</option>
-                <option value="review">후기</option>
-              </select>
-            </div>
-            <div className="flex gap-3">
-              <input type="text" placeholder="찾아보기" className="w-[200px] text-sm p-1 outline-none rounded-md border" />
-              <button className="text-gray-200 bg-theme-color transition-all hover:bg-[#0073c6] text-sm p-1 outline-none rounded-md border w-[50px]">검색</button>
-            </div>
-          </form>
-        </div>
-        <div className="flex justify-center items-center text-sm">
-          {/* 페이지네이션이 들어오는 곳 */}
-          <ul className="flex justify-center items-center gap-2 p-3 text-center">
-            <li className="w-5 h-5 text-slate-500">◄</li>
-            <li className="w-5 h-5 bg-slate-300 rounded-md">1{/* active */}</li>
-            <li className="w-5 h-5">2</li>
-            <li className="w-5 h-5">3</li>
-            <li className="w-5 h-5 text-slate-500">►</li>
+          <ul className="text-[12px] h-[50px] flex items-center border border-r-transparent border-l-transparent font-semibold">
+            <li className="w-[15%] p-1 text-center">자격증</li>
+            <li className="w-[10%] p-1 text-center">카테고리</li>
+            <li className="w-[45%] p-1 text-center">제목</li>
+            <li className="w-[10%] p-1 text-center">글쓴이</li>
+            <li className="w-[12%] p-1 text-center">등록일</li>
+            <li className="w-[8%] p-1 text-center">조회수</li>
           </ul>
         </div>
+        <div>
+          <SummaryPost />
+        </div>
       </div>
-    </div>
+      <div>
+        <form className="flex gap-3 items-center justify-end">
+          <div className="flex gap-3">
+            <Select className="w-[180px] text-[12px]" options={licenses} />
+            <Select className="w-[180px] text-[12px]" options={category} />
+          </div>
+          <div className="flex gap-3">
+            <input type="text" placeholder="찾아보기" className="w-[220px] text-[12px] p-2 h-[38px] outline-none border border-gray-300 rounded-md" />
+            <button className="text-gray-200 bg-theme-color transition-all hover:bg-[#0073c6] text-[12px] p-1 outline-none rounded-md border w-[50px]">검색</button>
+          </div>
+        </form>
+      </div>
+      <div className="flex justify-center items-center mt-3 text-sm">
+        {/* 페이지네이션이 들어오는 곳 */}
+        <ul className="flex justify-center items-center gap-2 p-3 text-center">
+          <li className="w-5 h-5 text-slate-500">◄</li>
+          <li className="w-5 h-5 bg-slate-300 rounded-md">1{/* active */}</li>
+          <li className="w-5 h-5">2</li>
+          <li className="w-5 h-5">3</li>
+          <li className="w-5 h-5 text-slate-500">►</li>
+        </ul>
+      </div>
+    </>
   );
 }
