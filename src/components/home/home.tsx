@@ -1,10 +1,11 @@
 "use client"
 
 import React,{ useState, useEffect } from "react";
-import { fetchLicenses } from "../lib/licensesSupabase";
-import { LicensesType } from "../types/licensesType";
-import { fetchQuestionPosts, fetchReviewPosts } from "../lib/postSupabase";
+import { fetchLicenses } from "../../lib/licensesSupabase";
+import { LicensesType } from "../../types/licensesType";
+import { fetchQuestionPosts, fetchReviewPosts } from "../../lib/postSupabase";
 import { PostsType } from "@/types/postsType";
+import PostBox from '../home/postBox'
 
 export default function Home() {
   const location : {id: number, name:string}[] = [{id:1, name:'서울'},{id:2, name:'경기'},{id:3, name:'인천'},{id:4, name:'강원'},{id:5, name:'대전'},{id:6, name:'충청'},{id:7, name:'광주'},{id:8, name:'전라'},{id:9, name:'대구'},{id:10, name:'부산'},{id:11, name:'울산'},{id:12, name:'경상'},{id:13, name:'제주'}]
@@ -26,8 +27,9 @@ export default function Home() {
       try{
           const res : PostsType[] = await fetchReviewPosts();
           console.log(res)
+          const reviewUpToFive = res.filter((_,idx)=>idx<=4).sort((a,b)=>b.post_id-a.post_id)
           setPosts((prev)=>{
-            return {...prev, review: res}
+            return {...prev, review: reviewUpToFive}
           })
       }catch(error){
           console.log('review error', error)
@@ -37,9 +39,10 @@ export default function Home() {
     const getQuestionPosts = async () => {
       try{
         const res : PostsType[] = await fetchQuestionPosts();
+        const questionUpToFive = res.filter((_,idx)=>idx<=4).sort((a,b)=>b.post_id-a.post_id)
         console.log(res)
         setPosts((prev)=>{
-          return {...prev, question: res}
+          return {...prev, question: questionUpToFive}
         })
       }catch(error){
         console.log('question error',error)
@@ -59,7 +62,7 @@ export default function Home() {
     <div className="text-theme-color">너두</div>
     <div className="text-white">할 수 있어 !</div>
     </div>
-    <div className="w-6/12 h-full py-10 flex flex-col items-center justify-end gap-6">
+    <form className="w-6/12 h-full py-10 flex flex-col items-center justify-end gap-6">
       <input type="date" className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" />
       <select className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" >
         {location.map((lo)=>{
@@ -71,9 +74,8 @@ export default function Home() {
             return <option key={li.license_id} value={li.license_name}>{li.license_name}</option>
           })
         }
-        
       </select>
-    </div>
+    </form>
   </div>
   <div className="w-full h-6/12 py-4 flex flex-row justify-center">
     <div className="w-5/12 h-full flex flex-col items-center ">
@@ -86,13 +88,7 @@ export default function Home() {
       <div className="w-4/5 h-72 px-4 py-4 flex flex-col gap-4 overflow-y-auto">
         {posts.review.map((post:PostsType)=>{
             return (
-                <div key={post.post_id} className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
-                    <div className="w-full h-6/12 flex flex-row justify-between">
-                        <div className="text-md ">{post.title}</div>
-                        <div className="text-sm text-neutral-500">{post.created_at.split('T')[0]}</div>
-                    </div>
-                    <div className="text-sm text-neutral-500">{post.content}</div>
-                </div>
+                <PostBox post_id={post.post_id} title={post.title} content={post.content} created_at={post.created_at}/>
             )
         })}
       </div>
@@ -105,14 +101,8 @@ export default function Home() {
       <div className="w-4/5 h-72 px-4 py-4 mb-10 flex flex-col gap-4 overflow-y-auto">
       {posts.question.map((post:PostsType)=>{
             return (
-                <div key={post.post_id} className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
-                    <div className="w-full h-6/12 flex flex-row justify-between">
-                        <div className="text-md ">{post.title}</div>
-                        <div className="text-sm text-neutral-500">{post.created_at.split('T')[0]}</div>
-                    </div>
-                    <div className="text-sm text-neutral-500">{post.content}</div>
-                </div>
-            )
+              <PostBox post_id={post.post_id} title={post.title} content={post.content} created_at={post.created_at}/>
+          )
         })}
       </div>
     </div>
