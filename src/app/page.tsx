@@ -1,113 +1,85 @@
-import Image from "next/image";
+import React from "react";
 
 export default function Home() {
+  const location : string[] = ['서울', '경기도','강원도', '충청도', '전라도', '경상도', '제주도']
+  const license : string[] = ['정보처리기사', '빅데이터분석기사']
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+<><div className="w-full h-80 px-56 bg-blue-100 flex flex-row items-center justify-between">
+    <div className="text-6xl font-black flex flex-col gap-4 drop-shadow-md">
+      <div className="text-white">야 ,</div>
+    <div className="text-theme-color">너두</div>
+    <div className="text-white">할 수 있어 !</div>
+    </div>
+    <div className="w-6/12 h-full py-10 flex flex-col items-center justify-end gap-6">
+      <input type="date" className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" />
+      <select className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" >
+        {location.map((lo)=>{
+          return <option value={lo}>{lo}</option>
+        })}
+      </select>
+      <select className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" >
+        {license.map((li)=>{
+          return <option value={li}>{li}</option>
+        })}
+      </select>
+    </div>
+  </div>
+  <div className="w-full h-6/12 py-4 flex flex-row justify-center">
+    <div className="w-5/12 h-full flex flex-col items-center ">
+      <div className="w-4/5 h-16 px-8 flex flex-row items-center justify-between ">
+        <div>
+          📔 합격 후기
+        </div>
+        <button className="text-sm text-gray-600 cursor-pointer hover:text-theme-color">+ 더보기</button>
+      </div>
+      <div className="w-4/5 h-72 px-4 py-4 flex flex-col gap-4 overflow-y-auto">
+        <div className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
+          <div className="w-full h-6/12 flex flex-row justify-between">
+            <div className="text-md ">제목</div>
+            <div className="text-sm text-neutral-500">2024.07.09.</div>
+          </div>
+          <div className="text-sm text-neutral-500">내용이 적히는 란입니다.</div>
         </div>
       </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+    </div>
+    <div className="w-5/12 h-full flex flex-col items-center">
+      <div className="w-4/5 h-16 px-8 flex flex-row items-center justify-between " >
+         🙋🏻‍♀ Q & A
+         <button className="text-sm text-gray-600 cursor-pointer hover:text-theme-color">+ 더보기</button>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="w-4/5 h-72 px-4 py-4 mb-10 flex flex-col gap-4 overflow-y-auto">
+        <div className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
+          <div className="w-full h-6/12 flex flex-row justify-between">
+            <div className="text-md ">제목</div>
+            <div className="text-sm text-neutral-500">2024.07.09.</div>
+          </div>
+          <div className="text-sm text-neutral-500">내용이 적히는 란입니다.</div>
+        </div>
+        <div className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
+          <div className="w-full h-6/12 flex flex-row justify-between">
+            <div className="text-md ">제목</div>
+            <div className="text-sm text-neutral-500">2024.07.09.</div>
+          </div>
+          <div className="text-sm text-neutral-500">내용이 적히는 란입니다.</div>
+        </div>
+        <div className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
+          <div className="w-full h-6/12 flex flex-row justify-between">
+            <div className="text-md ">제목</div>
+            <div className="text-sm text-neutral-500">2024.07.09.</div>
+          </div>
+          <div className="text-sm text-neutral-500">내용이 적히는 란입니다.</div>
+        </div>
+        <div className="w-full h-20 min-h-20 px-4 border border-solid border-gray-200 bg-gray-100 rounded-lg flex flex-col justify-center drop-shadow-md cursor-pointer hover:bg-white hover:scale-105 ease-in duration-300">
+          <div className="w-full h-6/12 flex flex-row justify-between">
+            <div className="text-md ">제목</div>
+            <div className="text-sm text-neutral-500">2024.07.09.</div>
+          </div>
+          <div className="text-sm text-neutral-500">내용이 적히는 란입니다.</div>
+        </div>
       </div>
-    </main>
+    </div>
+    
+  </div>
+  </>
   );
 }
