@@ -26,7 +26,10 @@ export default function RootLayout({
             <button className="w-20 h-7 border border-solid border-theme-color bg-white rounded-lg text-sm text-theme-color drop-shadow-md hover:bg-theme-color hover:text-white ease-in duration-300 ">로그인</button>
           </div>
         </header>
-        {children}
+        <div className="w-full min-h-screen">
+          {children}
+        </div>
+        
         <footer className="w-full h-40 px-40 py-10 border border-solid border-gray-300">
           <div className="text-lg font-black text-gray-400">you can do it !</div>
           <div className="flex flex-row justify-between">

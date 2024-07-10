@@ -95,7 +95,6 @@ export default function Home() {
                 </div>
             )
         })}
-        
       </div>
     </div>
     <div className="w-5/12 h-full flex flex-col items-center">
