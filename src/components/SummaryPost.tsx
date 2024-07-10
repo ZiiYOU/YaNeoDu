@@ -3,7 +3,6 @@ import Link from "next/link";
 export default function SummaryPost() {
   return (
     <div>
-      {/* 게시물 목록이 들어오는 곳, 아래는 예시입니다. 최대 10개의 게시물이 한 페이지에 들어옵니다 */}
       <Link href={"/board/123"}>
         <ul className="text-[12px] h-[45px] flex items-center border-b border-dotted">
           <li className="w-[15%] p-1 text-center">전기기사</li>

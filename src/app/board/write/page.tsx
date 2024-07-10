@@ -20,9 +20,13 @@ export default function Write() {
       </div>
       <p className="h-[1px] w-full ml-auto mr-auto bg-slate-300"></p>
       <form className="flex flex-col gap-3 mt-3 mb-3">
-        <div className="flex gap-3">
+        <div className="flex gap-4 items-center" >
           <Select className="w-[180px] text-[12px]" options={licenses} />
           <Select className="w-[180px] text-[12px]" options={category} />
+          <div className="flex items-center gap-2">
+            <label htmlFor="license" className="text-[12px]">취득 여부</label>
+            <input type="checkbox" id="license" name="취득 여부"/>
+          </div>
         </div>
         <input type="text" className="bg-[#fefefe] p-2 text-sm rounded-md border resize-none w-full outline-none" placeholder="제목을 입력하세요"/>
         <textarea className="bg-[#fefefe] p-2 rounded-md border h-[525px] resize-none w-full outline-none text-sm" placeholder="내용을 입력하세요. 카테고리에 맞지 않는 글을 작성 시 삭제될 수 있습니다.">

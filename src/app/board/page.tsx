@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Select from 'react-select'
-import SummaryPost from "../_components/SummaryPost";
+import SummaryPost from "../../components/SummaryPost";
 
 export const dynamic = "force-dynamic";
 

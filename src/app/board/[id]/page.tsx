@@ -1,4 +1,4 @@
-import Comment from "@/app/_components/Comment";
+import Comment from "@/components/Comment";
 import Link from "next/link";
 
 export default function Detail() {
@@ -23,7 +23,7 @@ export default function Detail() {
             <h2 className="text-sm text-gray-400">
               <span>전기기사</span> / <span>후기</span>
             </h2>
-            <h1 className="text-xl font-bold">xx자격증 너무 쉽네요</h1>
+            <h1 className="text-xl font-bold">xx자격증 너무 쉽네요&nbsp;<span>✅</span></h1>
           </div>
           <div className="flex justify-between p-3">
             <div className="flex gap-3">
