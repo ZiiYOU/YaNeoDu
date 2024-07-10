@@ -7,7 +7,7 @@ import { fetchQuestionPosts, fetchReviewPosts } from "../lib/postSupabase";
 import { PostsType } from "@/types/postsType";
 
 export default function Home() {
-  const location : string[] = ['서울', '경기도','강원도', '충청도', '전라도', '경상도', '제주도']
+  const location : {id: number, name:string}[] = [{id:1, name:'서울'},{id:2, name:'경기'},{id:3, name:'인천'},{id:4, name:'강원'},{id:5, name:'대전'},{id:6, name:'충청'},{id:7, name:'광주'},{id:8, name:'전라'},{id:9, name:'대구'},{id:10, name:'부산'},{id:11, name:'울산'},{id:12, name:'경상'},{id:13, name:'제주'}]
   const [licenses,setLicenses] = useState<LicensesType[]>([])
   const [posts, setPosts] = useState<{[key:string] : PostsType[]}>({review:[], question:[]});
 
@@ -63,7 +63,7 @@ export default function Home() {
       <input type="date" className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" />
       <select className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" >
         {location.map((lo)=>{
-          return <option key={lo} value={lo}>{lo}</option>
+          return <option key={lo.id} value={lo.name}>{lo.name}</option>
         })}
       </select>
       <select className="w-8/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" >
