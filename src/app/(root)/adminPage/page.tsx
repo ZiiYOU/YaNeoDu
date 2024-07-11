@@ -1,11 +1,11 @@
 "use client"
 
-import supabase from '@/supabase/supabaseClient'
+import { supabase } from '@/supabase/SupabaseClient'
 import { CheckLicense } from '@/types/test'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
-  const [licenses, setLicenses] = useState<CheckLicense>([])
+  const [licenses, setLicenses] = useState<CheckLicense[]>([])
   const [filterData, setFilterData] = useState('pending')
   // supabase데이터 가져오기
   useEffect(()=> {
@@ -22,7 +22,7 @@ const Page = () => {
   },[])
 
   // supabase 승인 상태 업데이트 & 승인 일자 업데이트
-  const handleConfirm = async(id : string, is_confirm : boolean) => {
+  const handleConfirm = async(id : number, is_confirm : boolean) => {
     const confirmDate = new Date().toISOString().split('T')[0]
     const {data, error} = await supabase
       .from('admin_test')

@@ -2,6 +2,7 @@
 
 import { LicensesType } from '@/types/licensesType'
 import axios from 'axios'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 const Banner = () => {
@@ -22,11 +23,6 @@ const Banner = () => {
         getLicenses();
     }, [])
 
-    const onSubmitHandler = (event: any) => {
-        event.preventDefault();
-        console.log(values)
-      }
-    
       const onChangeHandler = (event : any) => {
         const {name, value} = event.target;
         setValues((prev)=>{
@@ -56,7 +52,7 @@ const Banner = () => {
          }
         </select>
       </div>
-      <button onClick={onSubmitHandler} className="w-2/12 h-8 mb-10 bg-gray-100 rounded-lg border border-solid border-gray-200 drop-shadow-lg cursor-pointer hover:bg-white hover:border-theme-color hover:text-theme-color hover:scale-110 ease-in duration-300 ">검색</button>
+      <Link href={`/detail/?data=${values.date}&locationId=${values.location}&licenseId=${values.license}`} className="w-2/12 h-8 mb-10 flex items-center justify-center bg-gray-100 rounded-lg border border-solid border-gray-200 drop-shadow-lg cursor-pointer hover:bg-white hover:border-theme-color hover:text-theme-color hover:scale-110 ease-in duration-300 ">검색</Link>
     </div>
   </div>
     </>
