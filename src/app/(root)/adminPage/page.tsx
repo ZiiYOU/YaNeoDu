@@ -50,9 +50,9 @@ const Page = () => {
 
 
   return (
-    <div className='max-w-[1300px]'>
+    <div className='max-w-[1300px] mx-auto flex flex-col'>
       <h1 className='mx-[120px] mt-[50px] text-3xl'>진위확인 신청 목록</h1>
-      <div className='flex justify-first mt-[30px]'>
+      <div className='flex mt-[30px] ml-[50px]'>
         <button 
           className={`border-x border-t border-solid py-2 px-4 rounded ${filterData === 'pending'? 'bg-[#0090F9] text-white' : 'bg-white'}`}
           onClick={()=> setFilterData('pending')}
@@ -102,27 +102,6 @@ const Page = () => {
                 </tr>
               ))
             }
-              {/* {
-                licenses.map((license)=>(
-                <tr className='border-b border-solid' key={license.id}>
-                  <td className='p-[18px] text-center'>{license.user_id}</td>
-                  <td className='p-[18px] text-center'>{license.user_name}</td>
-                  <td className='p-[18px] text-center'>{license.user_birth}</td>
-                  <td className='p-[18px] text-center'>{license.license_number}</td>
-                  <td className='p-[18px] text-center'>{license.license_issue}</td>
-                  <td className='p-[18px] text-center'>{license.license_sub_number}</td>
-                  <td className='p-[18px] text-center'>{license.confirm_date}</td>
-                  <td>
-                    <button 
-                      className={`border border-solid py-[7px] px-[10px] rounded-xl text-white ${license.is_confirm ? 'bg-[#FF3030]' : 'bg-[#0090F9]'}`}
-                      onClick={() => handleConfirm(license.id, license.is_confirm)}
-                    >
-                      {license.is_confirm? '승인취소' : '승인확인'}
-                    </button>
-                  </td>
-                </tr>
-                ))
-              } */}
           </tbody>
         </table>
       </div>
