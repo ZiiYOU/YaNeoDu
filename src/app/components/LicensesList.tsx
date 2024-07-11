@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { BsFillXCircleFill } from "react-icons/bs";
+import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import Select from 'react-select';
@@ -61,8 +61,8 @@ function LicensesList() {
             <td className='px-3'>자격증 번호</td>
             <td className='px-3'>발급 연월일</td>
             <td className='px-3'>내지번호</td>
-            <td><BsFillXCircleFill className='m-auto' size={35} color={"#d80e0e"}/> </td>
-            {/* <BsCheckCircleFill className='m-auto' size={35} color={"#3e8311"}/> */}
+            {/* <td><BsFillXCircleFill className='m-auto' size={35} color={"#d80e0e"}/> </td> */}
+            <td><BsCheckCircleFill className='m-auto' size={35} color={"#3e8311"}/></td>
             <td><MdDeleteForever className='cursor-pointer m-auto' size={35}/></td>
           </tr>
           <tr className='h-16'>
