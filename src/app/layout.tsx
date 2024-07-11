@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className= 'relative mt-16 flex flex-col items-center'>
+      <body className= 'relative  mt-16 flex flex-col items-center'>
         <header className="fixed z-10 top-0 px-12 w-full h-16 bg-white border border-solid border-b-default-color drop-shadow-md flex flex-row items-center justify-between">
           <div className="text-lg font-black text-theme-color drop-shadow-md cursor-pointer">you can do it!</div>
           <div className="flex flex-row gap-3">
@@ -26,7 +26,7 @@ export default function RootLayout({
             <button className="w-20 h-7 border border-solid border-theme-color bg-white rounded-lg text-sm text-theme-color drop-shadow-md hover:bg-theme-color hover:text-white ease-in duration-300 ">로그인</button>
           </div>
         </header>
-        <div className="w-full min-h-screen">
+        <div className="w-full min-w-96 min-h-screen">
           {children}
         </div>
         
