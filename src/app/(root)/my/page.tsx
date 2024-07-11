@@ -1,5 +1,5 @@
 
-import LicensesList from '@/app/components/LicensesList';
+import LicensesList from '@/components/LicensesList';
 function myPage() {
   return (
     <div>
