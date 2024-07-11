@@ -461,7 +461,6 @@
     "@types/phoenix" "^1.5.4"
     "@types/ws" "^8.5.10"
     ws "^8.14.2"
-
 "@supabase/ssr@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@supabase/ssr/-/ssr-0.4.0.tgz#3ecb607e5346e6e09d50c106c2335db0e97903dd"
@@ -526,6 +525,7 @@
   integrity sha512-MdiXf+nDuMvY0gJKxyfZ7/6UFsETO7mGKF54MVD/ekJS6HdFtpZFBgrh6Pseu64XTb2MLyFPlbW6hj8HYRQNOQ==
   dependencies:
     undici-types "~5.26.4"
+
 
 "@types/parse-json@^4.0.0":
   version "4.0.2"
@@ -3348,6 +3348,7 @@ ws@^8.14.2:
   version "8.18.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.18.0.tgz#0d7505a6eafe2b0e712d232b42279f53bc289bbc"
   integrity sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==
+
 
 yaml@^1.10.0:
   version "1.10.2"
