@@ -12,9 +12,9 @@ export default function Write() {
     {value: "후기", label: "후기"},
   ]
 
-  /* const postUp = () => {
-
-  } */
+  const handlePost = () => {
+    
+  }
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function Write() {
         <textarea className="bg-[#fefefe] p-2 rounded-md border h-[525px] resize-none w-full outline-none text-sm" placeholder="내용을 입력하세요. 카테고리에 맞지 않는 글을 작성 시 삭제될 수 있습니다.">
         </textarea>
         <div className="flex justify-end gap-3">
-          <button className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]">등록하기</button>
+          <button onClick={handlePost} className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]">등록하기</button>
           <button className="text-sm text-center w-[120px] pt-2 pb-2 border rounded-md transition-all bg-[#fefefe] hover:bg-gray-200">취소</button>
         </div>
       </form>
