@@ -1,35 +1,23 @@
-"use client";
-
-import Input from '@/components/Input';
-import { SelectOption } from '@/types/ui';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { BsCheckCircleFill, BsFillXCircleFill } from "react-icons/bs";
+import axios from "axios";
 import { FaPlus } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
-import Select from 'react-select';
+import LicensesTr from "./LicensesTr";
+
+async function fetchLicenses() {
+  try {
+    const response = await axios.get(
+      `http://localhost:3000/api/licenses`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
 
 
+async function LicensesList() {
 
-function LicensesList() {
-  const [options, setOptions] = useState<SelectOption[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/licenses");
-        const licenses = response.data.map((license: { license_name: string }) => ({
-          value: license.license_name,
-          label: license.license_name,
-        }));
-        setOptions(licenses);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const Licenses = await fetchLicenses();
 
   return (
     <div className='w-[1240px] m-auto'>
@@ -48,36 +36,7 @@ function LicensesList() {
           </tr>
         </thead>
         <tbody>
-          <tr className='h-16'>
-            <td className='px-3 text-left'>
-              <Select options={options} placeholder="자격증 목록..." />
-            </td>
-            <td className='px-3'>
-              <Input value="자격증" placeholder="자격증" />
-            </td>
-            <td className='px-3'><Input value="발급 연월일" placeholder="발급 연월일" /></td>
-            <td className='px-3'><Input value="내지번호" placeholder="내지번호" /></td>
-            <td>
-              <BsFillXCircleFill className='m-auto' size={35} color={"#d80e0e"} />
-            </td>
-            <td>
-              <MdDeleteForever className='cursor-pointer m-auto' size={35} />
-            </td>
-          </tr>
-          <tr className='h-16'>
-            <td className='px-3 text-left'>
-              <Select options={options} placeholder="자격증 목록..." />
-            </td>
-            <td className='px-3'>자격증 번호</td>
-            <td className='px-3'>발급 연월일</td>
-            <td className='px-3'>내지번호</td>
-            <td>
-              <BsCheckCircleFill className='m-auto' size={35} color={"#3e8311"} />
-            </td>
-            <td>
-              <MdDeleteForever className='cursor-pointer m-auto' size={35} />
-            </td>
-          </tr>
+          <LicensesTr />
         </tbody>
       </table>
     </div>
