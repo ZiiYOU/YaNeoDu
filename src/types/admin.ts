@@ -1,4 +1,4 @@
-export interface CheckLicense {
+export type CheckLicense =  {
   id : number;
   user_id : string;
   user_name : string;
@@ -8,4 +8,9 @@ export interface CheckLicense {
   license_sub_number : string;
   confirm_date : Date | string | null;
   is_confirm : boolean;
+}
+
+export interface ConfirmStateProps {
+  setFilterData : (filter : string) => void
+  filterData : string
 }

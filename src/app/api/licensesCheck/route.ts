@@ -1,7 +1,8 @@
 
-import { CheckLicense } from '@/types/test'
-import supabase from '@/supabase/supabaseClient'
+import { createClient } from '@/supabase/client'
 import { NextRequest, NextResponse } from 'next/server'
+
+const supabase = createClient()
 
 export async function GET(req: NextRequest) {
   try {
