@@ -1,6 +1,7 @@
+import { LicenseListsProps } from '@/types/admin'
 import React from 'react'
 
-const LicenseLists = ({handleConfirm, formatDate, filteredLicenses}) => {
+const LicenseLists: React.FC<LicenseListsProps> = ({handleConfirm, formatDate, filteredLicenses}) => {
   return (
     <tbody>
     {

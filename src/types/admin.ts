@@ -14,3 +14,9 @@ export interface ConfirmStateProps {
   setFilterData : (filter : string) => void
   filterData : string
 }
+
+export interface LicenseListsProps {
+  handleConfirm : (id : number, is_confirm : boolean) => void
+  formatDate : (data : Date | string | null) => string | null
+  filteredLicenses : CheckLicense[]
+}
