@@ -1,8 +1,9 @@
 "use client"
 
-import supabase from '@/supabase/supabaseClient'
 import { CheckLicense } from '@/types/test'
 import React, { useEffect, useState } from 'react'
+import Category from './_components/Category'
+import LicenseLists from './_components/LicenseLists'
 
 const Page = () => {
   const [licenses, setLicenses] = useState<CheckLicense[]>([])
@@ -84,41 +85,8 @@ const Page = () => {
       </div>
       <div className='border border-solid w-[1200px] mx-auto p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl mb-[50px]'>
         <table className='w-full border-collapse'>
-          <thead>
-            <tr className='border-b border-solid'>
-              <th className='p-[18px] text-center'>아이디</th>
-              <th className='p-[18px] text-center'>이름</th>
-              <th className='p-[18px] text-center'>생년월일</th>
-              <th className='p-[18px] text-center'>자격증번호</th>
-              <th className='p-[18px] text-center'>자격증 발급일</th>
-              <th className='p-[18px] text-center'>자격증내자격번호</th>
-              <th className='p-[18px] text-center'>확인 일자</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              filteredLicenses.map((license)=> (
-                <tr className='border-b border-solid' key={license.id}>
-                  <td className='p-[18px] text-center'>{license.user_id}</td>
-                  <td className='p-[18px] text-center'>{license.user_name}</td>
-                  <td className='p-[18px] text-center'>{formatDate(license.user_birth)}</td>
-                  <td className='p-[18px] text-center'>{license.license_number}</td>
-                  <td className='p-[18px] text-center'>{formatDate(license.license_issue)}</td>
-                  <td className='p-[18px] text-center'>{license.license_sub_number}</td>
-                  <td className='p-[18px] text-center'>{formatDate(license.confirm_date)}</td>
-                  <td>
-                    <button 
-                      className={`border border-solid py-[7px] px-[10px] rounded-xl text-white ${license.is_confirm ? 'bg-[#FF3030]' : 'bg-[#0090F9]'}`}
-                      onClick={() => handleConfirm(license.id, license.is_confirm)}
-                    >
-                      {license.is_confirm? '승인취소' : '승인확인'}
-                    </button>
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
+          <Category />
+          <LicenseLists filteredLicenses={filteredLicenses} formatDate={formatDate} handleConfirm={handleConfirm}/>
         </table>
       </div>
     </div>
