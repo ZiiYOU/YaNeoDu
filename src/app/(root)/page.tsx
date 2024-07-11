@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function Home() {
   const location : string[] = ['서울', '경기도','강원도', '충청도', '전라도', '경상도', '제주도']
