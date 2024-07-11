@@ -6,7 +6,3 @@ export type Post = {
   comments: [],
   views: number,
 }
-
-export type SupabaseResponse = {
-  [key: string] : unknown 
-}
