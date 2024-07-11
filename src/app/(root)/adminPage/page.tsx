@@ -2,42 +2,52 @@
 
 import supabase from '@/supabase/supabaseClient'
 import { CheckLicense } from '@/types/test'
-import { instanceOf } from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
   const [licenses, setLicenses] = useState<CheckLicense[]>([])
   const [filterData, setFilterData] = useState('pending')
   // supabase데이터 가져오기
-  useEffect(()=> {
+  useEffect(() => {
     const fetchData = async () => {
-      const { data, error} = await supabase
-        .from('admin_test')
-        .select('*')
-      if (error) {
-        console.error('에러발생' , error)
+      try {
+        const response = await fetch('/api/licensesCheck')
+        const data = await response.json()
+
+        if (response.ok) {
+          setLicenses(data)
+        } else {
+          console.error('에러 발생', data.error)
+        }
+      } catch (error) {
+        console.error('에러 발생', error)
       }
-      setLicenses(data ?? [])
     }
     fetchData()
-  },[])
+  }, [])
 
   // supabase 승인 상태 업데이트 & 승인 일자 업데이트
-  const handleConfirm = async(id : number, is_confirm : boolean) => {
-    const confirmDate = new Date().toISOString().split('T')[0]
-    const {data, error} = await supabase
-      .from('admin_test')
-      .update({
-        is_confirm : !is_confirm,
-        confirm_date : !is_confirm ? confirmDate : null
+  const handleConfirm = async (id: number, is_confirm: boolean) => {
+    try {
+      const response = await fetch('/api/licensesCheck', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, is_confirm }),
       })
-      .eq('id', id)
-    if ( error) {
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setLicenses(licenses.map(license =>
+          license.id === id ? { ...license, is_confirm: !is_confirm, confirm_date: !is_confirm ? new Date().toISOString().split('T')[0] : null } : license
+        ))
+      } else {
+        console.error('에러 발생', data.error)
+      }
+    } catch (error) {
       console.error('에러 발생', error)
-    } else {
-      setLicenses(licenses.map(license => 
-        license.id === id ? {...license, is_confirm : !is_confirm, confirm_date : !is_confirm ? confirmDate : null} : license
-      ))
     }
   }
 
