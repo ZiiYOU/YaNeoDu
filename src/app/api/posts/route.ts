@@ -1,24 +1,13 @@
-import { Post } from "@/types/post"
 import { createClient } from "@/supabase/client"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-export async function POST(post: Post) {
-  const {license, category, is_confirm, content, comments, views} = post
-
+export async function POST(req: NextRequest) {
   const supabase = createClient()
 
-  const response = await supabase.from('posts').insert([
-      { 
-        license,
-        category,
-        is_confirm,
-        content,
-        comments,
-        views,
-      },
-    ])
+  const post = await req.json()
+
+  const {data, error} = await supabase.from('posts').insert([post]).select()
+  if(error) return NextResponse.json({error: error.message})
   
-  if(response?.error) return NextResponse.json("", {status: 401})
-  
-  console.log(response)
+  return NextResponse.json(data, {status: 200})
 }

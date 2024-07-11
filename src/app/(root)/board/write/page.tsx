@@ -1,5 +1,8 @@
 "use client"
 
+import { Post } from '@/types/post'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 import Select from 'react-select'
 
@@ -10,6 +13,7 @@ export default function Write() {
   const title = useRef<HTMLInputElement>(null)
   const content = useRef<HTMLTextAreaElement>(null)
 
+  const router = useRouter();
 
   const selectLicenses = [
     { value: "정보처리기사", label: "정보처리기사" },
@@ -20,27 +24,35 @@ export default function Write() {
     {value: "후기", label: "후기"},
   ]
 
-  const handlePost = () => {
-    /* try {
-      const post = {
-        license,
-        category,
-        certify,
-        title: title.current,
-        content: content.current
+  const handlePost = async (e: React.FormEvent): Promise<void> => {
+    /* 미완성 */
+    e.preventDefault()
+    if(!title.current?.value.trim() || !content.current?.value.trim()) {
+      alert("제목 또는 내용이 없습니다.")
+      return 
+    }
+    try {
+      const post: Post = {
+        user_id: "로그인 상태의 사용자 고유 ID",
+        nickname: "로그인 상태의 사용자 닉네임",
+        license_name: license,
+        category: category,
+        is_confirm: certify,
+        comments: null,
+        views: 0,
+        title: title.current!.value,
+        content: content.current!.value
       }
-      const response = await axios.post("/api/posts");
-      const licenses = response.data.map((license: { license_name: string }) => ({
-        value: license.license_name,
-        label: license.license_name,
-      }));
-      setOptions(licenses);
+      const response = await axios.post("/api/posts", post);
+      router.push("/board")
     } catch (error) {
       console.error("Error fetching data:", error);
-    } */
+    }
   };
 
-  
+  const handleCancel = () => {
+    router.back()
+  }
 
   return (
     <>
@@ -48,7 +60,7 @@ export default function Write() {
         <h1 className="text-2xl">질문 및 후기</h1>
       </div>
       <p className="h-[1px] w-full ml-auto mr-auto bg-slate-300"></p>
-      <form className="flex flex-col gap-3 mt-3 mb-3" onSubmit={handlePost}>
+      <form className="flex flex-col gap-3 mt-3 mb-3" onSubmit={(e: React.FormEvent) => handlePost(e)}>
         <div className="flex gap-4 items-center" >
           <Select className="w-[180px] text-[12px]" options={selectLicenses} onChange={(e) => {setLicense(e!.value)}} />
           <Select className="w-[180px] text-[12px]" options={selectCategory} onChange={(e) => {setCategory(e!.value)}}/>
@@ -64,7 +76,7 @@ export default function Write() {
         </textarea>
         <div className="flex justify-end gap-3">
           <button className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]">등록하기</button>
-          <button className="text-sm text-center w-[120px] pt-2 pb-2 border rounded-md transition-all bg-[#fefefe] hover:bg-gray-200">취소</button>
+          <button onClick={handleCancel} className="text-sm text-center w-[120px] pt-2 pb-2 border rounded-md transition-all bg-[#fefefe] hover:bg-gray-200">취소</button>
         </div>
       </form>
     </>
