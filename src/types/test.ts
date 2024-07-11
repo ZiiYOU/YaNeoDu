@@ -6,6 +6,6 @@ export interface CheckLicense {
   license_number : string;
   license_issue : Date | string ;
   license_sub_number : string;
-  confirm_date : Date | null;
+  confirm_date : Date | string | null;
   is_confirm : boolean;
 }

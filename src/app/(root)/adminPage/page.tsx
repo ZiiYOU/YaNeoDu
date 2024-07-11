@@ -2,10 +2,11 @@
 
 import supabase from '@/supabase/supabaseClient'
 import { CheckLicense } from '@/types/test'
+import { instanceOf } from 'prop-types'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
-  const [licenses, setLicenses] = useState<CheckLicense>([])
+  const [licenses, setLicenses] = useState<CheckLicense[]>([])
   const [filterData, setFilterData] = useState('pending')
   // supabase데이터 가져오기
   useEffect(()=> {
@@ -16,13 +17,13 @@ const Page = () => {
       if (error) {
         console.error('에러발생' , error)
       }
-      setLicenses(data)
+      setLicenses(data ?? [])
     }
     fetchData()
   },[])
 
   // supabase 승인 상태 업데이트 & 승인 일자 업데이트
-  const handleConfirm = async(id : string, is_confirm : boolean) => {
+  const handleConfirm = async(id : number, is_confirm : boolean) => {
     const confirmDate = new Date().toISOString().split('T')[0]
     const {data, error} = await supabase
       .from('admin_test')
@@ -47,7 +48,12 @@ const Page = () => {
     return true
   })
 
-
+  const formatDate = (date : Date | string | null) => {
+    if(date instanceof Date) { 
+      return date.toLocaleString()
+    }
+    return date
+  }
 
   return (
     <div className='max-w-[1300px] mx-auto flex flex-col'>
@@ -86,11 +92,11 @@ const Page = () => {
                 <tr className='border-b border-solid' key={license.id}>
                   <td className='p-[18px] text-center'>{license.user_id}</td>
                   <td className='p-[18px] text-center'>{license.user_name}</td>
-                  <td className='p-[18px] text-center'>{license.user_birth}</td>
+                  <td className='p-[18px] text-center'>{formatDate(license.user_birth)}</td>
                   <td className='p-[18px] text-center'>{license.license_number}</td>
-                  <td className='p-[18px] text-center'>{license.license_issue}</td>
+                  <td className='p-[18px] text-center'>{formatDate(license.license_issue)}</td>
                   <td className='p-[18px] text-center'>{license.license_sub_number}</td>
-                  <td className='p-[18px] text-center'>{license.confirm_date}</td>
+                  <td className='p-[18px] text-center'>{formatDate(license.confirm_date)}</td>
                   <td>
                     <button 
                       className={`border border-solid py-[7px] px-[10px] rounded-xl text-white ${license.is_confirm ? 'bg-[#FF3030]' : 'bg-[#0090F9]'}`}
