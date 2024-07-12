@@ -3,6 +3,7 @@
 import "@/app/globals.css";
 import React, { useState } from "react";
 import { createClient } from '@/supabase/client'
+import Router, { useRouter } from "next/navigation";
 import Link from "next/link";
 const supabase = createClient()
 
@@ -15,6 +16,8 @@ export default function Signup() {
   const [name, setName] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [birth, setBirth] = useState<string>("");
+  
+  const router = useRouter();
 
   const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -32,7 +35,7 @@ export default function Signup() {
     setNickname(e.target.value);
   };
   const birthChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBirth(e.target.value);
+    setBirth(e.target.value.toString());
   };
 
   const signupHandler = async (e: React.FormEvent) => {
@@ -43,14 +46,16 @@ export default function Signup() {
         password: password,
         options: {
           data: {
+            password: password,
             name: name,
             nickname: nickname,
             birth: birth
           }
         }
       })
+      console.log(data);
     } catch (error) {
-
+      console.log(error);
     }
   }
 
@@ -60,7 +65,7 @@ export default function Signup() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form onSubmit={signupHandler} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 이메일
