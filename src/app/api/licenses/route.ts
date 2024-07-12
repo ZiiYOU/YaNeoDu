@@ -7,7 +7,7 @@ export async function GET() {
 
   const { data, error } = await supabase
   .from('licenses')
-  .select()
+  .select('*')
 
   if (error) return NextResponse.json("", { status: 401 });
 

@@ -1,5 +1,5 @@
 export interface LicensesType{
-    created_at : string;
+    test_category : string;
     license_id: number; 
     license_name: string;
 }

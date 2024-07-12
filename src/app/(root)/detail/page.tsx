@@ -19,13 +19,6 @@ export default function Detail() {
           throw new Error('fetch data 가져오기 실패');
         }
 
-        parseString(res.data, (error: any, result: any) => {
-          if (error) {
-            throw new Error('Failed to parse XML');
-          }
-          console.log('Parsed JSON data:', result);
-        });
-
         // setLicenses(result);
       } catch (error) {
         console.error('Error fetching data:', error);
