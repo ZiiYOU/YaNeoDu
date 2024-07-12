@@ -1,7 +1,60 @@
+"use client";
+
 import "@/app/globals.css";
+import React, { useState } from "react";
+import { createClient } from '@/supabase/client'
+import Link from "next/link";
+const supabase = createClient()
 
 export default function Signup() {
 
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordCheck, setPasswordCheck] = useState<string>("");
+  
+  const [name, setName] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [birth, setBirth] = useState<string>("");
+
+  const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const passwordChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const passwordCheckChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordCheck(e.target.value);
+  };
+  const nameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+  const nicknameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+  const birthChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBirth(e.target.value);
+  };
+
+  const signupHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            name: name,
+            nickname: nickname,
+            birth: birth
+          }
+        }
+      })
+    } catch (error) {
+
+    }
+  }
+
+  
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -17,7 +70,9 @@ export default function Signup() {
                   id="email"
                   name="email"
                   type="email"
+                  placeholder="Enter Email..."
                   required
+                  onChange={emailChangeHandler}
                   autoComplete="email"
                   className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 />
@@ -33,8 +88,25 @@ export default function Signup() {
                   id="password"
                   name="password"
                   type="password"
+                  placeholder="Enter Password..."
+                  onChange={passwordChangeHandler}
                   required
-                  autoComplete="current-password"
+                  className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="passwordCheck" className="block text-sm font-medium leading-6 text-gray-900">
+                비밀번호 확인
+              </label>
+              <div className="mt-2">
+                <input
+                  id="passwordCheck"
+                  name="passwordCheck"
+                  type="password"
+                  onChange={passwordCheckChangeHandler}
+                  required
                   className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -46,11 +118,12 @@ export default function Signup() {
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
+                  id="name"
+                  name="name"
+                  type="text"
                   required
-                  autoComplete="email"
+                  onChange={nameChangeHandler}
+                  autoComplete="current-name"
                   className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -62,47 +135,49 @@ export default function Signup() {
               </label>
               <div className="mt-2">
                 <input
-                  id="password"
-                  name="password"
-                  type="password"
+                  id="nickname"
+                  name="nickname"
+                  type="text"
                   required
-                  autoComplete="current-password"
+                  onChange={nicknameChangeHandler}
+                  autoComplete="current-nickname"
                   className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="birth" className="block text-sm font-medium leading-6 text-gray-900">
                 생년월일
               </label>
               <div className="mt-2">
                 <input
-                  id="date"
-                  name="date"
+                  id="birth"
+                  name="birth"
                   type="date"
                   required
-                  autoComplete="email"
+                  autoComplete="date"
+                  onChange={birthChangeHandler}
                   className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
             <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-theme-color px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ease-out duration-100"
-              >
-                가입하기
-              </button>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-theme-color px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ease-out duration-100"
+                >
+                  가입하기
+                </button>
             </div>
           </form>
 
           <p className="w-80 mt-5 text-center text-sm text-gray-500">
             이미 계정이 있으신가요?{' '}
-            <a href="/login" className="font-semibold leading-6 text-theme-color hover:text-sky-400">
+            <Link href="/login" className="font-semibold leading-6 text-theme-color hover:text-sky-400">
               로그인
-            </a>
+            </Link>
           </p>
         </div>
       </div>
