@@ -3,10 +3,10 @@
 import Link from "next/link";
 import Select from 'react-select'
 import SummaryPost from "../../../components/SummaryPost";
-
-export const dynamic = "force-dynamic";
-
-/* post 경로명은 임시 경로명입니다. 고정 경로명으로 작업을 쉽게 하기 위함입니다. */
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Post } from "@/types/post";
+import BoardPagination from "@/components/BoardPagination";
 
 export default function Board() {
   const licenses = [
@@ -17,6 +17,25 @@ export default function Board() {
     {value: "질문", label: "질문"},
     {value: "후기", label: "후기"},
   ]
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const {data} = await axios.get("/api/posts");
+      setItems(data)
+      setTotalCount(data.length)
+    }
+
+    fetchData()
+  }, [])
+
+  const [totalCount, setTotalCount] = useState<number>(0)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [items, setItems] = useState<Post[]>([])
+
+  const totalPage = Math.ceil(totalCount / 10)
+
+
+
 
   return (
     <>
@@ -58,14 +77,7 @@ export default function Board() {
         </form>
       </div>
       <div className="flex justify-center items-center mt-3 text-sm">
-        {/* 페이지네이션이 들어오는 곳 */}
-        <ul className="flex justify-center items-center gap-2 p-3 text-center">
-          <li className="w-5 h-5 text-slate-500">◄</li>
-          <li className="w-5 h-5 bg-slate-300 rounded-md">1{/* active */}</li>
-          <li className="w-5 h-5">2</li>
-          <li className="w-5 h-5">3</li>
-          <li className="w-5 h-5 text-slate-500">►</li>
-        </ul>
+        <BoardPagination />
       </div>
     </>
   );

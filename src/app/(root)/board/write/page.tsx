@@ -1,6 +1,6 @@
 "use client"
 
-import { Post } from '@/types/post'
+import { Send } from '@/types/post'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
@@ -32,7 +32,7 @@ export default function Write() {
       return 
     }
     try {
-      const post: Post = {
+      const post: Send = {
         user_id: "로그인 상태의 사용자 고유 ID",
         nickname: "로그인 상태의 사용자 닉네임",
         license_name: license,

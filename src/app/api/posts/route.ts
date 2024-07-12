@@ -11,3 +11,13 @@ export async function POST(req: NextRequest) {
   
   return NextResponse.json(data, {status: 200})
 }
+
+export async function GET(req: NextRequest) {
+  const supabase = createClient()
+
+  const {data, error} = await supabase.from('posts').select('*')
+
+  if(error) return NextResponse.json({error: error.message})
+
+  return NextResponse.json(data, {status: 200})
+}
