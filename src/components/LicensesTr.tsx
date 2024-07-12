@@ -33,12 +33,12 @@ function LicensesTr() {
   return (
     <tr className='h-16'>
       <td className='px-3 text-left'>
-        <Select options={options} placeholder="자격증 목록..." isDisabled={true} />
+        <Select options={options} placeholder="자격증 목록..." isDisabled/>
       </td>
       <td className='px-3'>
         <Input value="자격증" placeholder="자격증" />
       </td>
-      <td className='px-3'><Input value="발급 연월일" placeholder="발급 연월일" /></td>
+      <td className='px-3'><Input value="발급 연월일" placeholder="발급 연월일" type="date"/></td>
       <td className='px-3'><Input value="내지번호" placeholder="내지번호" /></td>
       <td>
         <BsFillXCircleFill className='m-auto' size={35} color={"#d80e0e"} />
