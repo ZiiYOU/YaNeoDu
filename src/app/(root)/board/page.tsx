@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Post } from "@/types/post";
 import BoardPagination from "@/components/BoardPagination";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export default function Board() {
   const licenses = [
@@ -18,24 +19,28 @@ export default function Board() {
     {value: "후기", label: "후기"},
   ]
 
+  const [items, setItems] = useState<[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const totalItems = items.length
+  const ITEMS_PER_PAGE = 10;
+  
   useEffect(() => {
     const fetchData = async () => {
       const {data} = await axios.get("/api/posts");
-      setItems(data)
-      setTotalCount(data.length)
-    }
+      setItems(data);
+    };
 
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
-  const [totalCount, setTotalCount] = useState<number>(0)
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [items, setItems] = useState<Post[]>([])
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
-  const totalPage = Math.ceil(totalCount / 10)
-
-
-
+  const currentItems = items.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * (ITEMS_PER_PAGE - 1)
+  );
 
   return (
     <>
@@ -61,7 +66,7 @@ export default function Board() {
           </ul>
         </div>
         <div>
-          <SummaryPost />
+          <SummaryPost currentItems={currentItems} />
         </div>
       </div>
       <div>
@@ -77,7 +82,7 @@ export default function Board() {
         </form>
       </div>
       <div className="flex justify-center items-center mt-3 text-sm">
-        <BoardPagination />
+        <BoardPagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} currentPage={currentPage} onPageChange={handlePageChange}  />
       </div>
     </>
   );

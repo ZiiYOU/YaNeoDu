@@ -1,26 +1,38 @@
 "use client"
 
 interface Props {
+  totalItems: number,
+  itemsPerPage: number,
   currentPage: number,
-  pageRange: { start: number, end: number },
-  nextPage: any,
-  prevPage: any,
+  onPageChange: (pageNumber: number) => void,
 }
 
-export default function BoardPagination() {
-  
+export default function BoardPagination({totalItems, itemsPerPage, currentPage, onPageChange}: Props) {
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const handleClick = (pageNumber: number) => {
+    onPageChange(pageNumber);
+  };
+
+  const active = "w-5 h-5 rounded-full bg-theme-color text-white"
 
   return (
-    <div>
-      <button className="w-5 h-5 text-slate-500">◄</button>
+    <div className="flex gap-3 justify-center items-center">
+      <button onClick={() => handleClick(currentPage - 1)}
+        disabled={currentPage === 1} className="w-5 h-5 text-slate-500 cursor-pointer">◄</button>
       <ul className="flex justify-center items-center gap-2 p-3 text-center">
-        {
-
-        }
-        <li className="w-5 h-5 bg-slate-300 rounded-md">1{/* active */}</li>
-        <li className="w-5 h-5">2</li>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <li
+            key={i + 1}
+            onClick={() => handleClick(i + 1)}
+            className={currentPage === i + 1 ? active : 'w-5 h-5 cursor-pointer'}
+          >
+            {i + 1}
+          </li>
+        ))}
       </ul>
-      <button className="w-5 h-5 text-slate-500">►</button>
+      <button onClick={() => handleClick(currentPage + 1)}
+        disabled={currentPage === totalPages} className="w-5 h-5 text-slate-500 cursor-pointer">►</button>
     </div>
   )
 }
