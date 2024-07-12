@@ -7,7 +7,7 @@ const supabase = createClient()
 export async function GET(req: NextRequest) {
   try {
     const { data, error } = await supabase
-      .from('admin_test')
+      .from('license_check')
       .select('*')
 
     if (error) {
@@ -25,7 +25,7 @@ export async function PATCH(req: NextRequest) {
     const { id, is_confirm }: { id: number, is_confirm: boolean } = await req.json()
     const confirmDate = new Date().toISOString().split('T')[0]
     const { data, error } = await supabase
-      .from('admin_test')
+      .from('license_check')
       .update({
         is_confirm: !is_confirm,
         confirm_date: !is_confirm ? confirmDate : null
