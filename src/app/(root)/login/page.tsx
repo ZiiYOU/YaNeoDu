@@ -3,12 +3,14 @@
 import "@/app/globals.css";
 import { createClient } from '@/supabase/client'
 import Link from "next/link";
+import Router, { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 const supabase = createClient()
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const router = useRouter();
 
   const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -17,6 +19,7 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
+  
   const loginHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -24,9 +27,14 @@ export default function Login() {
         email: email,
         password: password,
       })
-      console.log(data);
+      if(error){
+        alert('로그인 실패')
+      }else{
+        router.push('/')
+      }
+
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -41,7 +49,6 @@ export default function Login() {
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form onSubmit={loginHandler} className="space-y-6">
             <div>
@@ -88,15 +95,12 @@ export default function Login() {
             </div>
 
             <div>
-              <Link href='/'>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-theme-color px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ease-out duration-100"
-                >
-                  로그인
-                </button>
-              </Link>
-
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-theme-color px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ease-out duration-100"
+              >
+                로그인
+              </button>
             </div>
           </form>
 
