@@ -1,36 +1,25 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { License } from '../types/License';
 import axios from 'axios';
 import { parseString } from 'xml2js';
+import { LicensesType } from '@/types/licensesType';
+import { testType } from '@/types/testType';
 
-// const API_ENDPOINT = 'http://openapi.q-net.or.kr/api/service/rest/InquiryListNationalQualifcationSVC';
 
 export default function Detail() {
-  const [licenses, setLicenses] = useState<License[]>([]);
+  const [test, setTest] = useState<testType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const res = await axios.get('/api/licenses/');
-        if (!res.data) {
-          throw new Error('fetch data 가져오기 실패');
-        }
-
-        parseString(res.data, (error: any, result: any) => {
-          if (error) {
-            throw new Error('Failed to parse XML');
-          }
-          console.log('Parsed JSON data:', result);
-        });
-
-        // setLicenses(result);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
+      try{
+        const {data} = await axios(`/api/licenseTest`);
+        console.log(data)
+        setTest(data)
+        setLoading(false)
+      }catch(error){
+        console.log(error)
       }
     };
     fetchData();
@@ -46,92 +35,50 @@ export default function Detail() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto mt-40 flex">
-      <aside className="w-1/4  bg-gray-200 flex flex-col rounded-lg mr-10 p-6 mb-28">
-        <input type="search" placeholder="검색어를 입력하세요." className="bg-white rounded p-2 mb-3" />
-        <p className="m-1">월간</p>
-        <input type="date" className="bg-white rounded p-1 mb-3" />
-        <p className="m-1">연간</p>
-        <input type="date" className="bg-white rounded p-1 mb-3" />
-        <p className="m-1">종목</p>
-        <input type="search" className="bg-white rounded p-1 mb-3" />
-        <p className="m-1">시험장</p>
-        <input type="search" className="bg-white rounded p-1 mb-3" />
-        <button className="mx-auto bg-blue-500 text-white w-32 py-1.5 mt-5 rounded-md">검색</button>
-      </aside>
+    <>
+      <div className='w-11/12 h-20 mt-12 mx-10 px-40 flex flex-row items-center text-2xl font-bold '>시험 정보</div>
+        <div className="max-w-7xl mx-auto mt-8 px-10 flex flex-row justify-center">
+        <section className="w-3/4 px-10 flex flex-col items-center mb-20">
+            <div className="min-w-full flex flex-col border border-solid border-gray-300 rounded-lg py-4 px-8">
+              {test.map((info)=>{
+                return (<div key={info.test_id}>
+                          <div className='h-1/6 flex flex-row py-4 items-center '>
+                              <div className='w-1/3 py-4 border-r border-solid border-gray-500 '>필기시험 원서접수 기간</div>
+                              <div className='w-2/3 py-4 px-12 flex items-center '>{info.written_apply_duration}</div>
+                            </div>
+                            <div className='h-1/6 flex flex-row py-4 items-center '>
+                              <div className='w-1/3 py-4 border-r border-solid border-gray-500 '>필기시험 응시기간</div>
+                              <div className='w-2/3 py-4 px-12 flex items-center '>{`${info.written_test_start} - ${info.written_test_end}`}</div>
+                            </div>
+                            <div className='h-1/6 flex flex-row py-4 items-center '>
+                              <div className='w-1/3 py-4 border-r border-solid border-gray-500 '>필기시험 합격자 발표일</div>
+                              <div className='w-2/3 py-4 px-12 flex items-center '>{info.written_result_duration}</div>
+                            </div>
+                            <div className='h-1/6 flex flex-row py-4 items-center '>
+                              <div className='w-1/3 py-4 border-r border-solid border-gray-500 '>실기시험 원서접수 기간</div>
+                              <div className='w-2/3 py-4 px-12 flex items-center '>{info.practical_apply_duration}</div>
+                            </div>
+                            <div className='h-1/6 flex flex-row py-4 items-center '>
+                              <div className='w-1/3 py-4 border-r border-solid border-gray-500 '>실기시험 응시기간</div>
+                              <div className='w-2/3 py-4 px-12 flex items-center '>{`${info.practical_test_start} - ${info.practical_test_end}`}</div>
+                            </div>
+                            <div className='h-1/6 flex flex-row py-4 items-center '>
+                              <div className='w-1/3 py-4 border-r border-solid border-gray-500 '>실기시험 합격자 발표일</div>
+                              <div className='w-2/3 py-4 px-12 flex items-center '>{info.practical_result_duration}</div>
+                            </div>
+                          </div>)
+                        })}
 
-      <section className="w-3/4 flex flex-col mb-20">
-        <header className="bg-gray-200 flex items-center justify-between px-7 p-4 rounded-md mb-8">
-          <h2 className="text-center text-lg font-semibold">시험 일정</h2>
-          <button className="bg-blue-500 text-white w-32 py-1.5 rounded-md">보러가기</button>
-        </header>
-
-        <ol className="overflow-y-auto flex-1 bg-white">
-          {/* {licenses.map((schedule, index) => ( */}
-          <li key="" className="border border-2 border-gray-300 rounded-lg p-5 mb-7">
-            <div className="mb-3">
-              <h4 className="font-semibold">시험 정보</h4>
-              <p>시험 상세 정보</p>
             </div>
-
-            <table className="min-w-full bg-white my-2 mt-7">
-              <thead className="border-y-2">
-                <tr>
-                  <th className="text-center">필기시험 원서 접수 시작일자</th>
-                  <th className="text-center">필기시험 원서 접수 종료일자</th>
-                  <th className="text-center">필기시험 일자</th>
-                  <th className="text-center">필기시험 합격(예정)자 발표 일자</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b-2">
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <table className="min-w-full bg-white my-2 mt-7">
-              <thead className="border-y-2">
-                <tr>
-                  <th className="text-center">응시자격 서류제출 및 필기 시험 합격자 결정 시작일자</th>
-                  <th className="text-center">응시자격 서류제출 및 필기 시험 합격자 결정 종료일자</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b-2">
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <table className="min-w-full bg-white my-2 mt-7">
-              <thead className="border-y-2">
-                <tr>
-                  <th className="text-center">면접 시험 원서접수 시작일자</th>
-                  <th className="text-center">면접 시험 원서접수 종료일자</th>
-                  <th className="text-center">면접 시험 시작일자</th>
-                  <th className="text-center">면접 시험 종료일자</th>
-                  <th className="text-center">합격자 발표 일자</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b-2">
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                  <td className="text-center">0000.00.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </li>
-          {/* ))} */}
-        </ol>
-      </section>
+            {/* ))} */}
+        </section>
+        <aside className="w-1/4 h-1/4 bg-gray-100 border border-solid border-gray-300 flex flex-col rounded-lg mr-8 p-6 mb-28">
+          <input type="date" className="bg-white border border-solid border-gray-300 rounded p-1 mb-3" />
+          <input type="search" className="bg-white border border-solid border-gray-300 rounded p-1 mb-3" />
+          <button className="mx-auto bg-blue-500 border border-solid border-theme-color text-white w-28 py-1 mt-5 rounded-md drop-shadow-lg hover:bg-white hover:text-theme-color ease-in duration-300">검색</button>
+        </aside>
     </div>
+    </>
+    
   );
 }
