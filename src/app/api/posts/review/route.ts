@@ -6,8 +6,9 @@ export async function GET() {
   const supabase = createClient();
 
   const { data, error } = await supabase
-  .from('licenses')
-  .select('*')
+  .from('posts')
+  .select()
+  .eq('category','후기');
 
   if (error) return NextResponse.json("", { status: 401 });
 
