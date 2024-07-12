@@ -18,7 +18,8 @@ function LicensesList() {
   const fetchLicenses = useCallback(async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      const response = await axios.get(`/api/licensesMy/${user.id}`);
+      console.log(user);
+      const response = await axios.get(`/api/licensesMy/${user.email}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching data:", error);
