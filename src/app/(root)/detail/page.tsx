@@ -5,16 +5,24 @@ import axios from 'axios';
 import { parseString } from 'xml2js';
 import { LicensesType } from '@/types/licensesType';
 import { testType } from '@/types/testType';
+import { NextRequest } from 'next/server';
+import { SearchParamsContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
+import { useSearchParams } from 'next/navigation';
 
 
-export default function Detail() {
+export default function Detail(request: NextRequest) {
   const [test, setTest] = useState<testType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const searchParams = useSearchParams();
+  const test_category = searchParams.get('test_category')
+  const date = searchParams.get('data')
+  const licenseId = searchParams.get('licenseId')
 
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const {data} = await axios(`/api/licenseTest`);
+        const {data} = await axios(`/api/licenseTest`,{params:{test_category, date}});
         console.log(data)
         setTest(data)
         setLoading(false)
