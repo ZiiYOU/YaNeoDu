@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Post } from "@/types/post";
 import BoardPagination from "@/components/BoardPagination";
-import { useInfiniteQuery } from "@tanstack/react-query";
 
 export default function Board() {
   const licenses = [
