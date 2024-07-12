@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 
 const Banner = () => {
     const [licenses,setLicenses] = useState<LicensesType[]>([])
-    const [values, setValues] = useState<{date: string, location:string, license: string}>({date: '', location:'0', license: '0'})
+    const [values, setValues] = useState<{date: string, license: string}>({date: '', license: ''})
     
     useEffect(()=>{
         const getLicenses = async () => {
@@ -41,12 +41,12 @@ const Banner = () => {
         <input type="date" name="date" value={values.date} onChange={onChangeHandler} className="w-11/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" />
         <select name="license" value={values.license} onChange={onChangeHandler} className="w-11/12 h-8 px-4 bg-white border border-gray-300 border-solid rounded-lg drop-shadow-md" >
           {licenses.map((li:LicensesType)=>{
-            return <option key={li.license_id} value={`${li.license_id}/${li.test_category}`}>{li.license_name}</option>
+            return <option key={li.license_id} value={`${li.license_name}/${li.test_category}`}>{li.license_name}</option>
             })
          }
         </select>
       </div>
-      <Link href={`/detail/?data=${values.date}&licenseId=${values.license.split('/')[0]}&test_category=${values.license.split('/')[1]}`} className="w-2/12 h-8 mb-10 flex items-center justify-center bg-gray-100 rounded-lg border border-solid border-gray-200 drop-shadow-lg cursor-pointer hover:bg-white hover:border-theme-color hover:text-theme-color hover:scale-110 ease-in duration-300 ">검색</Link>
+      <Link href={`/detail/?date=${values.date}&license=${values.license.split('/')[0]}&test_category=${values.license.split('/')[1]}`} className="w-2/12 h-8 mb-10 flex items-center justify-center bg-gray-100 rounded-lg border border-solid border-gray-200 drop-shadow-lg cursor-pointer hover:bg-white hover:border-theme-color hover:text-theme-color hover:scale-110 ease-in duration-300 ">검색</Link>
     </div>
   </div>
     </>
