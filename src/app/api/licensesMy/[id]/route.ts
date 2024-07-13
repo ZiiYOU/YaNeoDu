@@ -23,3 +23,22 @@ export async function GET(request: Request, { params }: { params: { id: string }
 
   return NextResponse.json(data);
 }
+
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+  const { id } = params;
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from('license_check')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    console.error("에러:", error);
+    return NextResponse.json({ error: "에러" }, { status: 500 });
+  }
+
+  console.log('삭제 데이터:', data);
+
+  return NextResponse.json({ message: "삭제 데이터 successfully" });
+}

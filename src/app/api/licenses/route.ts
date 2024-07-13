@@ -1,8 +1,8 @@
 import { createClient } from "@/supabase/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
-
+  
   const supabase = createClient();
 
   const { data, error } = await supabase
@@ -11,8 +11,6 @@ export async function GET() {
 
   if (error) return NextResponse.json("", { status: 401 });
 
-
-  console.log(data);
 
   return NextResponse.json(data);
 }

@@ -1,25 +1,24 @@
-"use client"
-
-import { useState } from "react";
+"use client";
 
 type InputProps = {
-  value?: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   placeholder: string;
   isDisabled?: boolean;
-}
+};
 
-function Input({ value = "", type = "text", placeholder, isDisabled = false }: InputProps) {
-  const [inputValue, setInputValue] = useState(value);
-
+function Input({ name, value, onChange, type = "text", placeholder, isDisabled = false }: InputProps) {
   return (
     <input
       className="w-full h-9 mx-2 border border-[#cccccc] rounded-sm px-2 outline-[#0090F9]"
       type={type}
-      value={inputValue}
+      name={name}
+      value={value}
       placeholder={placeholder}
       disabled={isDisabled}
-      onChange={(e) => setInputValue(e.target.value)}
+      onChange={onChange}
     />
   );
 }

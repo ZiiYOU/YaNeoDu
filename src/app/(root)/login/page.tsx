@@ -3,10 +3,10 @@
 import "@/app/globals.css";
 import { createClient } from '@/supabase/client';
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
-import React, { useState } from "react";
 
-const supabase = createClient();
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+const supabase = createClient()
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -20,22 +20,22 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
+  
   const loginHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        console.error("로그인 오류:", error.message);
-      } else {
-        console.log("로그인 성공:", data);
-        router.push("/"); 
+        email: email,
+        password: password,
+      })
+      if(error){
+        alert('로그인 실패')
+      }else{
+        router.push('/')
       }
+
     } catch (error) {
-      console.error("예상치 못한 오류:", error);
+      //console.log(error);
     }
   };
 
@@ -65,6 +65,7 @@ export default function Login() {
             <div className="flex items-center justify-between">
               <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 비밀번호
+
               </label>
               <div className="text-sm">
                 <a href="#" className="font-semibold text-theme-color hover:text-sky-400">
@@ -102,6 +103,7 @@ export default function Login() {
             회원가입
           </Link>
         </p>
+
       </div>
     </div>
   );
