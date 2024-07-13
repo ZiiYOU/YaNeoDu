@@ -135,6 +135,7 @@ export default function Login() {
               </button>
             </div>
           </form>
+          <button onClick={logoutHandler}>임시로그아웃</button>
 
           <p className="w-80 mt-5 text-center text-sm text-gray-500">
             아직 계정이 없으신가요?{' '}
