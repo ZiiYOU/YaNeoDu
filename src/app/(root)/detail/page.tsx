@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactEventHandler, useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LicensesType } from '@/types/licensesType';
 import { testType } from '@/types/testType';
@@ -8,6 +8,7 @@ import { NextRequest } from 'next/server';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import TestTableRow from './_component/TestTableRow';
 
 
 export default function Detail(request: NextRequest) {
@@ -94,36 +95,18 @@ export default function Detail(request: NextRequest) {
             <div className="min-w-full flex flex-col justify-center px-20 mt-8">
               {test.map((info)=>{
                 return (<table key={info.test_id} className='min-w-full flex flex-col justify-center border border-solid border-slate-300 rounded-2xl ' >
-                          <tr className='h-20 flex items-center '>
-                            <td className='w-2/5 min-w-56 min-h-full px-3 pt-4 border-r border-solid border-slate-300 bg-gray-50 flex items-center rounded-tl-2xl font-semibold'>필기시험 원서접수 기간</td>
-                            <td className='w-3/5 px-3 pt-4 '>{info.written_apply_duration}</td>
-                          </tr>
-                          <tr className='h-16 flex items-center '>
-                            <td className='w-2/5 min-w-56 min-h-full px-3 border-r border-solid border-slate-300 bg-gray-50 flex items-center font-semibold'>필기시험 응시기간</td>
-                            <td className='w-3/5 px-3'>{`${info.written_test_start} - ${info.written_test_end}`}</td>
-                          </tr>
-                          <tr className='h-16 flex items-center'>
-                            <td className='w-2/5 min-w-56 min-h-full px-3 border-r border-solid border-slate-300 bg-gray-50 flex items-center font-semibold'>필기시험 합격자 발표일</td>
-                            <td className='w-3/5 px-3'>{info.written_result_duration}</td>
-                          </tr>
-                          <tr className='h-16 flex items-center '>
-                            <td className='w-2/5 min-w-56 min-h-full px-3 border-r border-solid border-slate-300 bg-gray-50 flex items-center font-semibold '>실기시험 원서접수 기간</td>
-                            <td className='w-3/5 px-3'>{info.practical_apply_duration}</td>
-                          </tr>
-                          <tr className='h-16 flex items-center '>
-                            <td className='w-2/5 min-w-56 min-h-full px-3 border-r border-solid border-slate-300 bg-gray-50 flex items-center font-semibold'>실기시험 응시기간</td>
-                            <td className='w-3/5 px-3'>{`${info.practical_test_start} - ${info.practical_test_end}`}</td>
-                          </tr>
-                          <tr className='h-20 flex items-center '>
-                            <td className='w-2/5 min-w-56 min-h-full px-3 pb-4 border-r border-solid border-slate-300 bg-gray-50 flex items-center rounded-bl-2xl font-semibold'>실기시험 합격자 발표일</td>
-                            <td className='w-3/5 px-3 pb-4'>{info.practical_result_duration}</td>
-                          </tr>
+                          <TestTableRow title='필기시험 원서접수 기간' data={info.written_apply_duration} tl='2xl' bl='0'  />
+                          <TestTableRow title='필기시험 응시기간' data={`${info.written_test_start} - ${info.written_test_end}`} tl='0' bl='0' />
+                          <TestTableRow title='필기시험 합격자 발표일' data={info.written_result_duration} tl='0' bl='0'  />
+                          <TestTableRow title='실기시험 원서접수 기간' data={info.practical_apply_duration} tl='0' bl='0' />
+                          <TestTableRow title='실기시험 응시기간' data={`${info.practical_test_start} - ${info.practical_test_end}`} tl='0' bl='0' />
+                          <TestTableRow title='실기시험 합격자 발표일' data={info.practical_result_duration} tl='0' bl='2xl' />
                         </table>)
               })}
             </div>
         </section>
         <div className='sticky w-1/3 h-full mr-20 top-72  '>
-          <aside className="min-w-64 h-1/4 bg-gray-100 border border-solid border-gray-300 flex flex-col rounded-lg mr-8 p-6 mb-8 drop-shadow-lg">
+          <aside className="min-w-64 h-1/4 bg-gray-100 border border-solid border-gray-300 flex flex-col rounded-lg mr-8 p-6 mb-4 drop-shadow-lg">
             <input type="date" name='date' value={values.date} onChange={onChangeInputHandler} className="bg-white border border-solid border-gray-300 rounded p-1 mb-3" />
             <select name='license' value={values.license} onChange={onChangeSelectHandler} className="bg-white border border-solid border-gray-300 rounded p-1 mb-3">
               {licenses.map((license)=>{
