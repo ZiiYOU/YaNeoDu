@@ -30,12 +30,8 @@ const useAuthStore = create<AuthState & AuthAction>()(
       login: (token, user) => {
         if (token) {
           set({ token, user, isAuthenticated: true })
-          console.log(token)
-          console.log(user)
         } else {
           alert('로그인불가')
-          console.log(token)
-          console.log(user)
         }
       },
       logout: () => {
