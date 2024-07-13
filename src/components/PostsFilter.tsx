@@ -20,25 +20,33 @@ export default function PostsFilter() {
   useEffect(() => {
     const getLicenses = async () => {
       const {data} = await axios.get('/api/licenses')
+      console.log(data)
       const licensesArr = data.map((license: { license_name: string }) => ({
         value: license.license_name,
         label: license.license_name,
       }));
+      licensesArr.unshift({
+        value: "전체",
+        label: "전체",
+      })
       setLicenses(licensesArr)
     }
     getLicenses();
   }, [])
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+  }
+
   return (
     <div>
-      <form className="flex gap-3 items-center justify-end">
+      <form className="flex gap-3 items-center justify-end" onSubmit={handleSubmit}>
         <div className="flex gap-3">
           <Select className="w-[180px] text-[12px]" options={licenses} />
           <Select className="w-[180px] text-[12px]" options={category} />
         </div>
         <div className="flex gap-3">
-          <input type="text" placeholder="찾아보기" className="w-[220px] text-[12px] p-2 h-[38px] outline-none border border-gray-300 rounded-md" />
-          <button className="text-gray-200 bg-theme-color transition-all hover:bg-[#0073c6] text-[12px] p-1 outline-none rounded-md border w-[50px]">검색</button>
+          <button className="text-gray-200 h-[38px] bg-theme-color transition-all hover:bg-[#0073c6] text-[12px] p-1 outline-none rounded-md border w-[50px]">검색</button>
         </div>
       </form>
     </div>
