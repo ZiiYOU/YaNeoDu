@@ -16,7 +16,13 @@ export default function Login() {
   const router = useRouter();
 
   const login = useAuthStore((state) => state.login);
-  const logout = useAuthStore((state) => state.logout);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+       router.push('/')
+     }
+  })
 
   const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -50,21 +56,6 @@ export default function Login() {
         router.push('/')
       }
 
-    } catch (error) {
-      //console.log(error);
-    }
-  };
-
-  const logoutHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        alert('로그아웃 실패')
-      } else {
-        logout();
-        router.push('/')
-      }
     } catch (error) {
       //console.log(error);
     }
@@ -135,7 +126,6 @@ export default function Login() {
               </button>
             </div>
           </form>
-          <button onClick={logoutHandler}>임시로그아웃</button>
 
           <p className="w-80 mt-5 text-center text-sm text-gray-500">
             아직 계정이 없으신가요?{' '}
