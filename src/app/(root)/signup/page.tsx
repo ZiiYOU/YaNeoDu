@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import { createClient } from '@/supabase/client'
 import Router, { useRouter } from "next/navigation";
 import Link from "next/link";
-import useAuthStore from "@/zustand/store/authStore";
 const supabase = createClient()
 
 export default function Signup() {
@@ -18,8 +17,6 @@ export default function Signup() {
   const [nickname, setNickname] = useState<string>("");
   const [birth, setBirth] = useState<string>("");
   
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
-  console.log(isAuthenticated);
   const router = useRouter();
 
   const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
