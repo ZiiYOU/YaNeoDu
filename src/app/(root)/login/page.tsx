@@ -32,7 +32,6 @@ export default function Login() {
         email: email,
         password: password,
       })
-      console.log(data)
       if (error) {
         alert('로그인 실패')
       } else {
