@@ -5,12 +5,18 @@ import { createClient } from '@/supabase/client'
 import Link from "next/link";
 import Router, { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { User } from "@/types/user";
+import useAuthStore from "@/zustand/store/authStore";
 const supabase = createClient()
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const router = useRouter();
+
+  const login = useAuthStore((state) => state.login);
+  const logout = useAuthStore((state) => state.logout);
 
   const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -19,7 +25,6 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  
   const loginHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -27,12 +32,40 @@ export default function Login() {
         email: email,
         password: password,
       })
-      if(error){
+      console.log(data)
+      if (error) {
         alert('로그인 실패')
-      }else{
+      } else {
+        const token: string = data.session.access_token;
+        const response = (await supabase.from('users').select('*').eq('id', email).single()).data;
+        const user: User = {
+          id: response.id,
+          user_id: response.user_id,
+          password: response.password,
+          name: response.name,
+          nickname: response.nickname,
+          birth: response.birth,
+          admin: response.admin
+        }
+        login(token, user);
         router.push('/')
       }
 
+    } catch (error) {
+      //console.log(error);
+    }
+  };
+
+  const logoutHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        alert('로그아웃 실패')
+      } else {
+        logout();
+        router.push('/')
+      }
     } catch (error) {
       //console.log(error);
     }
