@@ -1,23 +1,13 @@
 "use client"
 
 import Link from "next/link";
-import Select from 'react-select'
 import SummaryPost from "../../../components/SummaryPost";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Post } from "@/types/post";
 import BoardPagination from "@/components/BoardPagination";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import PostsFilter from "@/components/PostsFilter";
 
 export default function Board() {
-  const licenses = [
-    { value: "정보처리기사", label: "정보처리기사" },
-    { value: "전기기사", label: "전기기사" }
-  ]
-  const category = [
-    {value: "질문", label: "질문"},
-    {value: "후기", label: "후기"},
-  ]
 
   const [items, setItems] = useState<[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -69,18 +59,7 @@ export default function Board() {
           <SummaryPost currentItems={currentItems} />
         </div>
       </div>
-      <div>
-        <form className="flex gap-3 items-center justify-end">
-          <div className="flex gap-3">
-            <Select className="w-[180px] text-[12px]" options={licenses} />
-            <Select className="w-[180px] text-[12px]" options={category} />
-          </div>
-          <div className="flex gap-3">
-            <input type="text" placeholder="찾아보기" className="w-[220px] text-[12px] p-2 h-[38px] outline-none border border-gray-300 rounded-md" />
-            <button className="text-gray-200 bg-theme-color transition-all hover:bg-[#0073c6] text-[12px] p-1 outline-none rounded-md border w-[50px]">검색</button>
-          </div>
-        </form>
-      </div>
+      <PostsFilter />
       <div className="flex justify-center items-center mt-3 text-sm">
         <BoardPagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} currentPage={currentPage} onPageChange={handlePageChange}  />
       </div>

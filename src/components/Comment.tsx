@@ -1,35 +1,47 @@
-import React from 'react'
+"use client"
 
-export default function Comment() {
+import { GetComment } from "@/types/comment"
+import axios from "axios"
+import { useEffect, useState } from "react"
+
+interface Props {
+  paramsId: number
+}
+
+export default function Comment({paramsId}: Props) {
+  const [items, setItems] = useState<GetComment[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(`/api/posts/comment?id=${paramsId}`)
+      setItems(data)
+    }
+    fetchData()
+  }, [])
+
   return (
-    <div className="p-3 border-b border-dotted">
-      <ul className="flex items-center text-sm justify-between text-center">
-        <li className="w-[10%]">
-          <span className="font-bold">뉴비</span>&nbsp;님
-        </li>
-        <li className="w-[55%] text-left overflow-hidden white">
-          도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배
-          좀 그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;도배 좀 그만하세요;;도배 좀 그만하세요;;도배 좀
-          그만하세요;;
-        </li>
-        <li className="w-[20%] text-gray-400">2024.07.08 15:00:09</li>
-        <li className="w-[10%] flex justify-evenly">
-          <button className="p-1 hover:text-theme-color" title="수정하기">
-            ✎
-          </button>
-          <button className="p-1 hover:text-theme-color" title="삭제하기">
-            ✕
-          </button>
-        </li>
-      </ul>
-    </div>
+    <>
+      {
+        items?.map(item => 
+          <div className="p-3 border-b border-dotted" key={item.comment_id}>
+            <ul className="flex items-center text-sm justify-between text-center">
+              <li className="w-[10%]">
+                <span className="font-bold">{item.nickname}</span>&nbsp;님
+              </li>
+              <li className="w-[55%] text-left overflow-hidden white">
+                {item.content}
+              </li>
+              <li className="w-[20%] text-gray-400">{item.created_at}</li>
+              <li className="w-[10%] flex justify-evenly">
+                <button className="p-1 hover:text-theme-color" title="삭제하기">
+                  ✕
+                </button>
+              </li>
+            </ul>
+          </div>
+        )
+      }
+    </>
+    
   )
 }
