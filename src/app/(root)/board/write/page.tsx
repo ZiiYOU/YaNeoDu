@@ -25,7 +25,7 @@ export default function Write() {
   ]
 
   const handlePost = async (e: React.FormEvent): Promise<void> => {
-    /* 미완성 */
+    /* 미완성 , 전역으로 관리되는 유저 정보를 가지고 와야 한다.*/
     e.preventDefault()
     if(!title.current?.value.trim() || !content.current?.value.trim()) {
       alert("제목 또는 내용이 없습니다.")
@@ -46,7 +46,7 @@ export default function Write() {
       const response = await axios.post("/api/posts", post);
       router.push("/board")
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error posting data:", error);
     }
   };
 
