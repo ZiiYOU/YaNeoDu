@@ -31,7 +31,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
   const { data, error } = await supabase
     .from('license_check')
     .delete()
-    .eq('id', id);
+    .eq('license_check_id', id);
 
   if (error) {
     console.error("에러:", error);

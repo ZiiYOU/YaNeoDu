@@ -1,50 +1,95 @@
-import { createClient } from "@/supabase/client";
-import { NextResponse } from "next/server";
+import { createClient } from '@/supabase/client';
+import { TLicense } from '@/types/licenses';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: Request) {
-  const supabase = createClient();
-  const licenses = await request.json();
+const supabase = createClient();
 
-  if (!Array.isArray(licenses)) {
-    return NextResponse.json({ error: "Invalid data format" }, { status: 400 });
-  }
+export async function POST(req: NextRequest) {
+  try {
+    const licenses: TLicense[] = await req.json();
+    console.log("Received licenses:", licenses);
+    const errors: string[] = [];
+    const results: any[] = [];
 
-  const errors = [];
-  const results = [];
+    for (const license of licenses) {
+      // Check if the license already exists
+      const { data: existingLicense, error: fetchError } = await supabase
+        .from('license_check')
+        .select('license_check_id')
+        .eq('license_check_id', license.license_check_id)
+        .single();
+      console.log("License check ID:", license.license_check_id, "License:", license);
 
-  for (const license of licenses) {
-    const { id, user_id, license_name, license_number, license_issue, license_sub_number, is_confirm, user_name, user_birth } = license;
+      if (fetchError && fetchError.code !== 'PGRST116') {
+        // If there's an error other than "No rows found" (PGRST116), add it to errors
+        errors.push(fetchError.message);
+        continue;
+      }
 
-    if (!id || !user_id || !license_name || !license_number || !license_issue || !license_sub_number || !user_name || !user_birth) {
-      errors.push({ id, error: "Missing required fields" });
-      continue;
+      if (existingLicense) {
+        // If the license exists, update it
+        const { data, error } = await supabase
+          .from('license_check')
+          .update({
+            user_id: license.user_id,
+            license_name: license.license_name,
+            license_number: license.license_number,
+            license_issue: new Date(license.license_issue),
+            license_sub_number: license.license_sub_number,
+            is_confirm: license.is_confirm,
+            user_birth: license.user_birth,
+            user_name: license.user_name,
+            id: license.id,
+          })
+          .eq('license_check_id', license.license_check_id);
+
+        if (error) {
+          errors.push(error.message);
+        } else {
+          results.push(data);
+        }
+
+      } else {
+        // If the license does not exist, insert it
+        const { data, error } = await supabase
+          .from('license_check')
+          .insert({
+            license_check_id: license.license_check_id,
+            user_id: license.user_id,
+            license_name: license.license_name,
+            license_number: license.license_number,
+            license_issue: new Date(license.license_issue),
+            license_sub_number: license.license_sub_number,
+            is_confirm: license.is_confirm,
+            user_birth: license.user_birth,
+            user_name: license.user_name,
+            id: license.id,
+          });
+
+        if (error) {
+          errors.push(error.message);
+        } else {
+          results.push(data);
+        }
+      }
     }
 
-    const { data, error } = await supabase
-      .from('license_check')
-      .upsert({
-        id,
-        user_id,
-        license_name,
-        license_number,
-        license_issue,
-        license_sub_number,
-        is_confirm,
-        user_name,
-        user_birth
-      }, { onConflict: ['id'] });
-
-    if (error) {
-      console.error(`Error upserting license with id ${id}:`, error);
-      errors.push({ id, error: error.message });
-    } else {
-      results.push(data);
+    if (errors.length > 0) {
+      return NextResponse.json({ success: false, errors }, { status: 500 });
     }
-  }
 
-  if (errors.length > 0) {
-    return NextResponse.json({ errors }, { status: 500 });
+    return NextResponse.json({ success: true, data: results }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
-
-  return NextResponse.json({ results });
 }
+
+export async function methodNotAllowed(req: NextRequest) {
+  return NextResponse.json({ success: false, message: 'Method not allowed' }, { status: 405 });
+}
+
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};

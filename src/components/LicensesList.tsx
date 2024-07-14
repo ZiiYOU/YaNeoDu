@@ -16,18 +16,28 @@ function LicensesList({ id }: { id?: string }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string>("");
-  const [modifiedLicenses, setModifiedLicenses] = useState<Record<string, TLicense>>({});
+  const [userBirth, setUserBirth] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
+  const [modifiedLicenses, setModifiedLicenses] = useState<Record<string, Partial<TLicense>>>({});
   const supabase = createClient();
-
-
 
   const fetchLicenses = useCallback(async () => {
     try {
       let response;
       if (router === '/my') {
         const { data: { user } } = await supabase.auth.getUser();
+
+        const { data: profile } = await supabase
+          .from("users")
+          .select("user_id, birth, name")
+          .eq("id", user.email)
+          .single();
         setUserEmail(user.email);
-        console.log(user)
+        setUserBirth(profile.birth);
+        setUserName(profile.name);
+        setUserId(profile.user_id);
+
         response = await axios.get(`/api/licensesMy/${user.email}`);
       } else if (id && typeof id === 'string') {
         response = await axios.get(`/api/licensesMy/${id}`);
@@ -41,10 +51,9 @@ function LicensesList({ id }: { id?: string }) {
       setError("데이터 가져오기 오류");
       return [];
     }
-  }, [supabase]);
+  }, [supabase, router, id]);
 
   useEffect(() => {
-
     const loadLicenses = async () => {
       const initialLicenses = await fetchLicenses();
       setLicenses(initialLicenses);
@@ -56,29 +65,34 @@ function LicensesList({ id }: { id?: string }) {
 
   const addLicense = useCallback(() => {
     const uuid = uuidv4();
-    setLicenses((prevLicenses) => [
-      ...prevLicenses,
-      {
-        id: uuid,
-        user_id: userEmail,
-        license_name: '',
-        license_number: '',
-        license_issue: '',
-        license_sub_number: '',
-        is_confirm: false,
-      },
-    ]);
-  }, [userEmail]);
+    const newLicense: TLicense = {
+      license_check_id: uuid,
+      id: userId,
+      user_id: userEmail,
+      user_birth: userBirth,
+      user_name: userName,
+      license_name: '',
+      license_number: '',
+      license_issue: '',
+      license_sub_number: '',
+      is_confirm: false,
+    };
+    setLicenses((prevLicenses) => [...prevLicenses, newLicense]);
+    setModifiedLicenses((prevModifiedLicenses) => ({
+      ...prevModifiedLicenses,
+      [uuid]: newLicense,
+    }));
+  }, [userId, userEmail, userBirth, userName]);
 
   const handleLicenseChange = (id: string, updatedLicense: Partial<TLicense>) => {
-    setLicenses((prevLicenses) => 
-      prevLicenses.map((license) => 
-        license.id === id ? { ...license, ...updatedLicense } : license
+    setLicenses((prevLicenses) =>
+      prevLicenses.map((license) =>
+        license.license_check_id === id ? { ...license, ...updatedLicense } : license
       )
     );
     setModifiedLicenses((prevModifiedLicenses) => ({
       ...prevModifiedLicenses,
-      [id]: { ...prevModifiedLicenses[id], ...updatedLicense }
+      [id]: { ...prevModifiedLicenses[id], ...updatedLicense, license_check_id: id }
     }));
   };
 
@@ -88,7 +102,7 @@ function LicensesList({ id }: { id?: string }) {
 
     try {
       await axios.delete(`/api/licensesMy/${id}`);
-      setLicenses((prevLicenses) => prevLicenses.filter(license => license.id !== id));
+      setLicenses((prevLicenses) => prevLicenses.filter(license => license.license_check_id !== id));
       setModifiedLicenses((prevModifiedLicenses) => {
         const newModifiedLicenses = { ...prevModifiedLicenses };
         delete newModifiedLicenses[id];
@@ -100,11 +114,9 @@ function LicensesList({ id }: { id?: string }) {
   };
 
   const saveAllLicenses = async () => {
-    const emptyFields = licenses.some(license => 
+    const emptyFields = licenses.some(license =>
       !license.license_name.trim() || !license.license_number.trim() || !license.license_issue || !license.license_sub_number.trim()
     );
-
-    console.log(licenses);
 
     if (emptyFields) {
       alert("모든 필드를 채워야 합니다.");
@@ -135,20 +147,23 @@ function LicensesList({ id }: { id?: string }) {
 
   return (
     <div className="w-[1240px] m-auto">
-      <div className="flex">
-        <button
-          onClick={addLicense}
-          className="px-5 py-2 mb-3 ml-auto bg-[#0090F9] flex items-center text-white font-bold text-center rounded-lg"
-        >
-          <FaPlus className="mr-2" color="#ffffff" /> 자격증 추가하기
-        </button>
-        <button
-          onClick={saveAllLicenses}
-          className="px-5 py-2 mb-3 ml-3 bg-[#0090F9] flex items-center text-white font-bold text-center rounded-lg"
-        >
-          전체 자격증 저장하기
-        </button>
-      </div>
+      <h3 className="font-bold text-4xl leading-[8rem] mt-3 text-gray-800 text-center ">{router === '/my' ? `${userName}` : " "}님의 자격증 정보</h3>
+      {router === '/my' && (
+        <div className="flex">
+          <button
+            onClick={addLicense}
+            className="px-5 py-2 mb-3 ml-auto bg-[#0090F9] flex items-center text-white font-bold text-center rounded-lg"
+          >
+            <FaPlus className="mr-2" color="#ffffff" /> 자격증 추가하기
+          </button>
+          <button
+            onClick={saveAllLicenses}
+            className="px-5 py-2 mb-3 ml-3 bg-[#0090F9] flex items-center text-white font-bold text-center rounded-lg"
+          >
+            전체 자격증 저장하기
+          </button>
+        </div>
+      )}
       <table className="w-full border-collapse table-fixed border border-slate-300 text-center ">
         <thead>
           <tr className="h-12 font-bold text-lg border-b border-slate-300 bg-gray-50">
@@ -157,19 +172,40 @@ function LicensesList({ id }: { id?: string }) {
             <td>발급 연월일</td>
             <td>내지번호</td>
             <td className="w-[8%]">확인 유무</td>
-            <td className="w-[5%]"></td>
+            {router === '/my' && (<td className="w-[5%]"></td>)}
           </tr>
         </thead>
         <tbody>
-          {licenses.length > 0 ? 
+        {licenses.length > 0 ?
+          licenses.filter(license => router === '/my' || license.is_confirm).length > 0 ? (
             licenses.map((license) => (
-              <LicensesTr key={license.id} license={license} onDelete={deleteLicense} onChange={handleLicenseChange} />
+              router === '/my' ? (
+                <LicensesTr
+                  key={license.license_check_id}
+                  license={license}
+                  onDelete={deleteLicense}
+                  onChange={handleLicenseChange}
+                  isInput
+                />
+              ) : (
+                license.is_confirm && (
+                  <LicensesTr
+                    key={license.license_check_id}
+                    license={license}
+                  />
+                )
+              )
             ))
-            : 
+          ) : (
             <tr>
-              <td colSpan="6" className="text-center leading-10">추가한 자격증이 없습니다.</td>
+              <td colSpan="5" className="text-center leading-10">추가한 자격증이 없습니다.</td>
             </tr>
-          }
+          )
+          :
+          <tr>
+            <td colSpan="6" className="text-center leading-10">추가한 자격증이 없습니다.</td>
+          </tr>
+        }
         </tbody>
       </table>
     </div>

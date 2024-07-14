@@ -12,7 +12,7 @@ type InputProps = {
 function Input({ name, value, onChange, type = "text", placeholder, isDisabled = false }: InputProps) {
   return (
     <input
-      className="w-full h-9 mx-2 border border-[#cccccc] rounded-sm px-2 outline-[#0090F9]"
+      className="w-[95%] h-9 mx-auto border border-[#cccccc] rounded-sm px-2 outline-[#0090F9]"
       type={type}
       name={name}
       value={value}

@@ -11,14 +11,13 @@ import Select from "react-select";
 
 interface LicensesTrProps {
   license: TLicense;
-  onDelete: (id: string) => void;
-  onChange: (id: string, updatedLicense: Partial<TLicense>) => void;
+  onDelete?: (id: string) => void;
+  onChange?: (id: string, updatedLicense: Partial<TLicense>) => void;
+  isInput?: boolean;
 }
 
-function LicensesTr({ license, onDelete, onChange }: LicensesTrProps) {
+function LicensesTr({ license, onDelete, onChange, isInput = false }: LicensesTrProps) {
   const [options, setOptions] = useState<SelectOption[]>([]);
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,68 +29,80 @@ function LicensesTr({ license, onDelete, onChange }: LicensesTrProps) {
         }));
         setOptions(licenses);
       } catch (error) {
-        console.error("데이터 가져오기 오류:", error);
+        console.error("자격증 목록 가져오기 오류:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    console.log(name)
-    onChange(license.id, { [name]: value });
-  };
-
-  const handleSelectChange = (option: SelectOption | null) => {
-    onChange(license.id, { license_name: option ? option.value : '' });
+  const handleChange = (field: keyof TLicense, value: any) => {
+    onChange(license.license_check_id, { [field]: value });
   };
 
   return (
-    <tr className="h-16">
-      <td className="px-3 text-left">
-        <Select
-          options={options}
-          value={{ label: license.license_name, value: license.license_name }}
-          placeholder="자격증 목록..."
-          isDisabled={license.is_confirm}
-          onChange={handleSelectChange}
-        />
-      </td>
-      <td className="px-3">
-        <Input 
-          name="license_number"
-          value={license.license_number} 
-          placeholder="자격증 번호" 
-          disabled={license.is_confirm} 
-          onChange={handleInputChange}
-        />
-      </td>
-      <td className="px-3">
-        <Input 
-          name="license_issue"
-          value={license.license_issue} 
-          placeholder="발급 연월일" 
-          type="date" 
-          disabled={license.is_confirm} 
-          onChange={handleInputChange}
-        />
-      </td>
-      <td className="px-3">
-        <Input 
-          name="license_sub_number"
-          value={license.license_sub_number} 
-          placeholder="내지번호" 
-          disabled={license.is_confirm} 
-          onChange={handleInputChange}
-        />
-      </td>
-      <td>
-        {license.is_confirm ? <BsCheckCircleFill className='m-auto' size={35} color={"#3e8311"} /> : <BsFillXCircleFill className="m-auto" size={35} color={"#d80e0e"} />}
-      </td>
-      <td>
-        <MdDeleteForever className="cursor-pointer m-auto" size={35} onClick={() => onDelete(license.id)} />
-      </td>
+    <tr className="h-12 border-b border-slate-300">
+      {isInput ? (
+        <>
+          <td>
+            <Select
+              options={options}
+              value={options.find(option => option.value === license.license_name) || null}
+              onChange={(selectedOption) => handleChange("license_name", selectedOption ? selectedOption.value : '')}
+              isDisabled={license.is_confirm}
+              className="w-[95%] mx-auto"
+            />
+          </td>
+          <td>
+            <Input
+              value={license.license_number}
+              onChange={(e) => handleChange("license_number", e.target.value)}
+              isDisabled={license.is_confirm}
+            />
+          </td>
+          <td>
+            <Input
+              type="date"
+              value={license.license_issue}
+              onChange={(e) => handleChange("license_issue", e.target.value)}
+              isDisabled={license.is_confirm}
+            />
+          </td>
+          <td>
+            <Input
+              value={license.license_sub_number}
+              onChange={(e) => handleChange("license_sub_number", e.target.value)}
+              isDisabled={license.is_confirm}
+            />
+          </td>
+          <td>
+            <div className="flex justify-center items-center">
+              {license.is_confirm ? (
+                <BsCheckCircleFill color="green" size={30}/>
+              ) : (
+                <BsFillXCircleFill color="red" size={30}/>
+              )}
+            </div>
+          </td>
+          <td>
+            <button onClick={() => onDelete(license.license_check_id)}>
+              <MdDeleteForever color="red" size={30} />
+            </button>
+          </td>
+        </>
+      ) : (
+        <>
+          <td>{license.license_name}</td>
+          <td>{license.license_number}</td>
+          <td>{license.license_issue}</td>
+          <td>{license.license_sub_number}</td>
+          <td>
+            <div className="flex justify-center items-center">
+                <BsCheckCircleFill color="green" size={30}/>
+            </div>
+          </td>
+        </>
+      )}
     </tr>
   );
 }
