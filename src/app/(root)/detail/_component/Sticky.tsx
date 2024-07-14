@@ -2,6 +2,7 @@
 
 import { LicensesType } from '@/types/licensesType';
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
@@ -64,7 +65,7 @@ const Sticky = () => {
             </select>
             <button onClick={onSubmitHandler} className="mx-auto bg-theme-color border border-solid border-theme-color text-white w-28 py-1 mt-5 rounded-md drop-shadow-lg hover:bg-white hover:text-theme-color ease-in duration-300">검색</button>
           </aside>
-          <aside className="min-w-64 h-1/12 max-h-12 flex items-center justify-center bg-white border border-gray-300 flex flex-col rounded-lg p-6 mb-28 mr-8 drop-shadow-lg text-center text-md text-gray-500 hover:bg-white hover:text-theme-color hover:border-theme-color ease-in duration-300 ">{`합격자 후기 바로가기 >`} </aside>
+          <Link href={'/board'} className="min-w-64 h-1/12 max-h-12 flex items-center justify-center bg-white border border-gray-300 flex flex-col rounded-lg p-6 mb-28 mr-8 drop-shadow-lg text-center text-md text-gray-500 hover:bg-white hover:text-theme-color hover:border-theme-color ease-in duration-300 ">{`합격자 후기 바로가기 >`} </Link>
     </div>
   )
 }

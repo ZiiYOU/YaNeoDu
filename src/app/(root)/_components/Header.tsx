@@ -7,6 +7,7 @@ const supabase = createClient()
 
 function Header() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAdmin = useAuthStore((state)=> state.user?.admin)
   const logout = useAuthStore((state) => state.logout);
   const router = useRouter();
 
@@ -24,19 +25,22 @@ function Header() {
       //console.log(error);
     }
   };
+  console.log(isAdmin)
 
   return (
     <div className="fixed z-10 top-0 px-12 w-full h-16 bg-white border border-solid border-b-default-color drop-shadow-md flex flex-row items-center justify-between">
-      <Link href={'/'} className="text-lg font-black text-theme-color drop-shadow-md cursor-pointer">you can do it!</Link>
+      <Link href={'/'} className="w-36 text-lg font-black text-theme-color drop-shadow-md cursor-pointer">you can do it!</Link>
       {
         !isAuthenticated ? (
           <div className="flex flex-row gap-3">
             <Link href={'/signup'} className="w-20 h-7 flex items-center justify-center border border-solid border-theme-color bg-theme-color rounded-lg text-sm text-white drop-shadow-md hover:bg-white hover:text-theme-color ease-in duration-300">회원가입</Link>
-            <Link href={'/login'} className="w-20 h- flex items-center justify-center border border-solid border-theme-color bg-white rounded-lg text-sm text-theme-color drop-shadow-md hover:bg-theme-color hover:text-white ease-in duration-300 ">로그인</Link>
+            <Link href={'/login'} className="w-20 h-7 flex items-center justify-center border border-solid border-theme-color bg-white rounded-lg text-sm text-theme-color drop-shadow-md hover:bg-theme-color hover:text-white ease-in duration-300 ">로그인</Link>
           </div>
         ) : (
           <div className="flex flex-row gap-3">
-            <button onClick={logoutHandler} className="w-20 h- flex items-center justify-center border border-solid border-theme-color bg-white rounded-lg text-sm text-theme-color drop-shadow-md hover:bg-theme-color hover:text-white ease-in duration-300 ">로그아웃</button>
+            {isAdmin? (<Link href={'/adminPage'} className="w-24 h-7 flex items-center justify-center border border-solid border-theme-color bg-white rounded-lg text-sm text-theme-color drop-shadow-md hover:bg-theme-color hover:text-white ease-in duration-300 ">관리자 페이지</Link>) : ('')}
+            <Link href={'/my'} className="w-20 h-7 flex items-center justify-center border border-solid border-theme-color bg-theme-color rounded-lg text-sm text-white drop-shadow-md hover:bg-white hover:text-theme-color ease-in duration-300">마이페이지</Link>
+            <button onClick={logoutHandler} className="w-20 h-7 flex items-center justify-center border border-solid border-theme-color bg-white rounded-lg text-sm text-theme-color drop-shadow-md hover:bg-theme-color hover:text-white ease-in duration-300 ">로그아웃</button>
           </div>
         )
       }
