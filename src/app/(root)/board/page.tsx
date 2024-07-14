@@ -27,10 +27,10 @@ export default function Board() {
     setCurrentPage(pageNumber);
   };
 
-  const currentItems = items.slice(
+  const currentItems = items ? items.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * (ITEMS_PER_PAGE - 1)
-  );
+  ) : [];
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function Board() {
           <SummaryPost currentItems={currentItems} />
         </div>
       </div>
-      <PostsFilter />
+      <PostsFilter setItems={setItems} />
       <div className="flex justify-center items-center mt-3 text-sm">
         <BoardPagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} currentPage={currentPage} onPageChange={handlePageChange}  />
       </div>
