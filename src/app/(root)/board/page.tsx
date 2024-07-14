@@ -23,12 +23,10 @@ export default function Board() {
       router.push('/login')
       return
     }
-
     const fetchData = async () => {
       const {data} = await axios.get("/api/posts");
       setItems(data);
     };
-
     fetchData();
   }, []);
 
