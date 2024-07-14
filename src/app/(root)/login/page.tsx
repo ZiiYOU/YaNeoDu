@@ -4,14 +4,26 @@ import "@/app/globals.css";
 import { createClient } from '@/supabase/client';
 import Link from "next/link";
 
+import { User } from "@/types/user";
+import useAuthStore from "@/zustand/store/authStore";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 const supabase = createClient()
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const router = useRouter();
+
+  const login = useAuthStore((state) => state.login);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+       router.push('/')
+     }
+  })
 
   const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -20,7 +32,6 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  
   const loginHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -28,9 +39,21 @@ export default function Login() {
         email: email,
         password: password,
       })
-      if(error){
+      if (error) {
         alert('로그인 실패')
-      }else{
+      } else {
+        const token: string = data.session.access_token;
+        const response = (await supabase.from('users').select('*').eq('id', email).single()).data;
+        const user: User = {
+          id: response.id,
+          user_id: response.user_id,
+          password: response.password,
+          name: response.name,
+          nickname: response.nickname,
+          birth: response.birth,
+          admin: response.admin
+        }
+        login(token, user);
         router.push('/')
       }
 

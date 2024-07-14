@@ -12,7 +12,7 @@ export default function BoardLayout({
 }>) {
   return (
     <div className="flex justify-center items-center">
-      <div className="w-[1000px] bg-default-color p-10">
+      <div className="w-[1000px] min-h-[780px] bg-default-color p-10 m-0 mt-auto mb-auto">
         {children}
       </div>
     </div>

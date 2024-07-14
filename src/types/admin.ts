@@ -1,5 +1,5 @@
 export type CheckLicense =  {
-  id : number;
+  id : string;
   user_id : string;
   user_name : string;
   user_birth : Date | string ;
@@ -8,6 +8,7 @@ export type CheckLicense =  {
   license_sub_number : string;
   confirm_date : Date | string | null;
   is_confirm : boolean;
+  license_check_id : string;
 }
 
 export interface ConfirmStateProps {
@@ -16,7 +17,7 @@ export interface ConfirmStateProps {
 }
 
 export interface LicenseListsProps {
-  handleConfirm : (id : number, is_confirm : boolean) => void
-  formatDate : (data : Date | string | null) => string | null
-  filteredLicenses : CheckLicense[]
+  handleConfirm: (license_check_id: string, is_confirm: boolean) => void;
+  formatDate: (data: Date | string | null) => string | null;
+  filteredLicenses: CheckLicense[];
 }

@@ -8,7 +8,6 @@ export type Post = {
   category: string,
   title: string,
   content: string,
-  comments: null,
   views: number,
 }
 
@@ -20,6 +19,5 @@ export type Send = {
   category: string,
   title: string,
   content: string,
-  comments: null,
   views: number,
 }

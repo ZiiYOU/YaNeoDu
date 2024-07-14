@@ -9,7 +9,7 @@ import { FaPlus } from "react-icons/fa";
 import { v4 as uuidv4 } from 'uuid';
 import LicensesTr from "./LicensesTr";
 
-function LicensesList({ id }: { id?: string }) {
+function LicensesList({ profileId }: { profileId?: string }) {
   const router = usePathname();
 
   const [licenses, setLicenses] = useState<TLicense[]>([]);
@@ -21,6 +21,9 @@ function LicensesList({ id }: { id?: string }) {
   const [userId, setUserId] = useState<string>("");
   const [modifiedLicenses, setModifiedLicenses] = useState<Record<string, Partial<TLicense>>>({});
   const supabase = createClient();
+
+
+
 
   const fetchLicenses = useCallback(async () => {
     try {
@@ -39,8 +42,18 @@ function LicensesList({ id }: { id?: string }) {
         setUserId(profile.user_id);
 
         response = await axios.get(`/api/licensesMy/${user.email}`);
-      } else if (id && typeof id === 'string') {
-        response = await axios.get(`/api/licensesMy/${id}`);
+      } else if (profileId && typeof profileId === 'string') {
+        profileId = decodeURIComponent(profileId);
+        
+        const { data: profile } = await supabase
+        .from("users")
+        .select("name")
+        .eq("id", profileId)
+        .single();
+        setUserName(profile.name);
+
+        response = await axios.get(`/api/licensesMy/${profileId}`);
+
       } else {
         throw new Error('Invalid route');
       }
@@ -51,7 +64,7 @@ function LicensesList({ id }: { id?: string }) {
       setError("데이터 가져오기 오류");
       return [];
     }
-  }, [supabase, router, id]);
+  }, [supabase, router, profileId]);
 
   useEffect(() => {
     const loadLicenses = async () => {
@@ -137,6 +150,16 @@ function LicensesList({ id }: { id?: string }) {
     }
   };
 
+  const handleCopyClipBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(`http://localhost:3000/profile/${userEmail}`);
+      alert('클립보드에 링크가 복사되었습니다.');
+    } catch (e) {
+      alert('복사에 실패하였습니다');
+    }
+};
+
+
   if (loading) {
     return <div>로딩 중...</div>;
   }
@@ -147,9 +170,10 @@ function LicensesList({ id }: { id?: string }) {
 
   return (
     <div className="w-[1240px] m-auto">
-      <h3 className="font-bold text-4xl leading-[8rem] mt-3 text-gray-800 text-center ">{router === '/my' ? `${userName}` : " "}님의 자격증 정보</h3>
+      <h3 className="font-bold text-4xl leading-[8rem] mt-3 text-gray-800 text-center ">{userName}님의 자격증 정보</h3>
       {router === '/my' && (
         <div className="flex">
+          <button onClick={handleCopyClipBoard} className="px-5 py-2 mb-3 bg-[#0090F9] flex items-center text-white font-bold text-center rounded-lg">공유 링크 복사</button>
           <button
             onClick={addLicense}
             className="px-5 py-2 mb-3 ml-auto bg-[#0090F9] flex items-center text-white font-bold text-center rounded-lg"

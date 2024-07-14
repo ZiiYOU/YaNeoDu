@@ -2,12 +2,14 @@
 
 import { LicensesType } from '@/types/licensesType'
 import axios from 'axios'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 const Banner = () => {
     const [licenses,setLicenses] = useState<LicensesType[]>([])
     const [values, setValues] = useState<{date: string, license: string}>({date: '', license: ''})
+
+    const router = useRouter();
     
     useEffect(()=>{
         const getLicenses = async () => {
@@ -18,15 +20,36 @@ const Banner = () => {
               console.log('licenses error',error)
             }
         }
+        
         getLicenses();
     }, [])
 
-      const onChangeHandler = (event : any) => {
-        const {name, value} = event.target;
-        setValues((prev)=>{
-          return {...prev, [name]: value}
-        })
+    useEffect(()=>{
+      if(licenses.length){
+        setValues((prev) => {
+        return {...prev, license :`${licenses[0].license_name}/${licenses[0].test_category}`}
+      })
       }
+      
+    },[licenses])
+
+   
+
+    const onChangeHandler = (event :React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+      const {name, value} = event.target;
+      setValues((prev)=>{
+        return {...prev, [name]:value}
+      })
+    }
+  
+    const onSubmitHandler = () => {
+      if(!values.date){
+        alert('날짜를 입력해주세요!')
+        return;
+      }
+  
+      router.push(`/detail?date=${values.date}&license=${values.license.split('/')[0]}&test_category=${values.license.split('/')[1]}`)
+    }
   return (
     <>
         <div className="w-full h-80 bg-blue-100 flex flex-row items-center justify-center gap-32">
@@ -45,7 +68,7 @@ const Banner = () => {
          }
         </select>
       </div>
-      <Link href={`/detail/?date=${values.date}&license=${values.license.split('/')[0]}&test_category=${values.license.split('/')[1]}`} className="w-2/12 h-8 mb-10 flex items-center justify-center bg-gray-100 rounded-lg border border-solid border-gray-200 drop-shadow-lg cursor-pointer hover:bg-white hover:border-theme-color hover:text-theme-color hover:scale-110 ease-in duration-300 ">검색</Link>
+      <button onClick={onSubmitHandler} className="w-2/12 h-8 mb-10 flex items-center justify-center bg-gray-100 rounded-lg border border-solid border-gray-200 drop-shadow-lg cursor-pointer hover:bg-white hover:border-theme-color hover:text-theme-color hover:scale-110 ease-in duration-300 ">검색</button>
     </div>
   </div>
     </>

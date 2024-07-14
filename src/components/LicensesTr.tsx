@@ -86,7 +86,7 @@ function LicensesTr({ license, onDelete, onChange, isInput = false }: LicensesTr
           </td>
           <td>
             <button onClick={() => onDelete(license.license_check_id)}>
-              <MdDeleteForever color="red" size={30} />
+              <MdDeleteForever color="gray" size={30} />
             </button>
           </td>
         </>
