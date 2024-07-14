@@ -1,12 +1,16 @@
 "use client"
 
 import { Send } from '@/types/post'
+import useAuthStore from '@/zustand/store/authStore'
 import axios from 'axios'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import Select from 'react-select'
 
 export default function Write() {
+  const {isAuthenticated, user} = useAuthStore((state) => state);
+
   const [licenses, setLicenses] = useState<[{value: string, label: string}]>([
     {
       value: "데이터를 가져오는 중...",
@@ -28,6 +32,10 @@ export default function Write() {
   const router = useRouter();
 
   useEffect(() => {
+    /* if (!isAuthenticated) {
+      router.push('/login')
+    } */
+
     const getLicenses = async () => {
       const {data} = await axios.get('/api/licenses')
       const licensesArr = data.map((license: { license_name: string }) => ({
@@ -78,7 +86,7 @@ export default function Write() {
   return (
     <>
       <div className="flex justify-between items-center p-3">
-        <h1 className="text-2xl">질문 및 후기</h1>
+        <h1 className="text-2xl"><Link className="transition-all hover:text-theme-color" href={"/board"}>질문 및 후기</Link></h1>
       </div>
       <p className="h-[1px] w-full ml-auto mr-auto bg-slate-300"></p>
       <form className="flex flex-col gap-3 mt-3 mb-3" onSubmit={(e: React.FormEvent) => handlePost(e)}>

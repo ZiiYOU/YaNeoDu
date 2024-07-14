@@ -11,7 +11,5 @@ export async function GET() {
 
   if (error) return NextResponse.json("", { status: 401 });
 
-  console.log(data)
-
   return NextResponse.json(data);
 }

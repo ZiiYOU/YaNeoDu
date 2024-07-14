@@ -1,7 +1,10 @@
+"use client"
+
 import { Post } from "@/types/post";
 import Link from "next/link";
-import { getPostsData } from "../../_api/posts";
 import CommentSection from "@/components/CommentSection";
+import ViewCount from "@/components/ViewCount";
+import { getPostsData } from "@/app/_api/posts";
 
 export default async function Detail({params}: {params: {id: number}}) {
   const item: Post = await getPostsData(params.id)
@@ -10,7 +13,7 @@ export default async function Detail({params}: {params: {id: number}}) {
     <>
       <div className="flex justify-between items-center p-3">
         <h1 className="text-2xl">
-          <Link href={"/board"}>질문 및 후기</Link>
+        <Link className="transition-all hover:text-theme-color" href={"/board"}>질문 및 후기</Link>
         </h1>
         <Link
           className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
@@ -52,9 +55,7 @@ export default async function Detail({params}: {params: {id: number}}) {
               >
                 수정하기
               </button>
-              <p className="text-gray-400">
-                👁&nbsp;<span>{item.views}</span>
-              </p>
+              <ViewCount views={item.views} id={params.id} />
             </div>
           </div>
         </div>

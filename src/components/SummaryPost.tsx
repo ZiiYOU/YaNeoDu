@@ -8,8 +8,7 @@ interface Props {
 }
 
 export default function SummaryPost({currentItems}: Props) {
-
-  console.log(currentItems)
+  
   return (
     <div>
       {
