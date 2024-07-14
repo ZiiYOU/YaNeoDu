@@ -4,18 +4,17 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { LicensesType } from '@/types/licensesType';
 import { testType } from '@/types/testType';
-import { NextRequest } from 'next/server';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import TestTableRow from './_component/TestTableRow';
 
 
-export default function Detail(request: NextRequest) {
+export default function Detail() {
   const [test, setTest] = useState<testType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [licenses, setLicenses] = useState<LicensesType[]>([]);
-  const [values, setValues] = useState<{[key:string]:string}>({date:'', license:'멀티미디어콘텐츠제작전문가/기사'})
+  const [values, setValues] = useState<{[key:string]:string}>({date:'', license:''})
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -38,7 +37,6 @@ export default function Detail(request: NextRequest) {
     const getLicenses = async () => {
       try{
         const { data } = await axios(`/api/licenses`);
-
         setLicenses(data)
       }catch(error){
         console.log('fetch data error => ', error)
@@ -49,6 +47,15 @@ export default function Detail(request: NextRequest) {
     getLicenses();
     
   }, [date, test_category]);
+
+  useEffect(()=>{
+    if(licenses.length){
+      setValues((prev) => {
+      return {...prev, license :`${licenses[0].license_name}/${licenses[0].test_category}`}
+    })
+    }
+    
+  },[licenses])
 
   if (loading) {
     return (
@@ -79,8 +86,8 @@ export default function Detail(request: NextRequest) {
   return (
     <>
       <div className='w-9/12 h-28 mx-auto mt-12 px-16 border-b-2 border-solid border-gray-300 flex flex-row items-center justify-between '>
-        <div className='text-3xl font-bold'>{`${license} 시험 정보`}</div>
-        <Link href={'https://www.q-net.or.kr/man001.do?gSite=Q'} className='w-28 h-8 flex items-center justify-center bg-theme-color border border-solid border-theme-color text-white rounded-md drop-shadow-lg hover:bg-white hover:text-theme-color ease-in duration-300 '>{`원서접수 >`}</Link>
+        <div className='min-w-64 text-3xl font-bold'>{`${license} 시험 정보`}</div>
+        <Link href={'https://www.q-net.or.kr/man001.do?gSite=Q'} className='w-28 min-w-20 h-8 flex items-center justify-center bg-theme-color border border-solid border-theme-color text-white rounded-md drop-shadow-lg hover:bg-white hover:text-theme-color ease-in duration-300 '>{`원서접수 >`}</Link>
       </div>
       <div className="relative max-w-7xl mx-auto mt-8 px-10 flex flex-row justify-center">
         <section className="w-3/4 px-10 flex flex-col items-center mb-20">
@@ -91,12 +98,15 @@ export default function Detail(request: NextRequest) {
                 </div>
               ): (test.map((info)=>{
                 return (<table key={info.test_id} className='min-w-full flex flex-col justify-center border border-solid border-slate-300 rounded-sm drop-shadow-md' >
-                          <TestTableRow title='필기시험 원서접수 기간' data={info.written_apply_duration} />
-                          <TestTableRow title='필기시험 응시기간' data={`${info.written_test_start} - ${info.written_test_end}`} />
-                          <TestTableRow title='필기시험 합격자 발표일' data={info.written_result_duration} />
-                          <TestTableRow title='실기시험 원서접수 기간' data={info.practical_apply_duration} />
-                          <TestTableRow title='실기시험 응시기간' data={`${info.practical_test_start} - ${info.practical_test_end}`} />
-                          <TestTableRow title='실기시험 합격자 발표일' data={info.practical_result_duration} />
+                          <tbody>
+                            <TestTableRow title='필기시험 원서접수 기간' data={info.written_apply_duration} />
+                            <TestTableRow title='필기시험 응시기간' data={`${info.written_test_start} - ${info.written_test_end}`} />
+                            <TestTableRow title='필기시험 합격자 발표일' data={info.written_result_duration} />
+                            <TestTableRow title='실기시험 원서접수 기간' data={info.practical_apply_duration} />
+                            <TestTableRow title='실기시험 응시기간' data={`${info.practical_test_start} - ${info.practical_test_end}`} />
+                            <TestTableRow title='실기시험 합격자 발표일' data={info.practical_result_duration} />
+                          </tbody>
+                          
                         </table>)
               }))}
             </div>

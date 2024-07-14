@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 
 const Banner = () => {
     const [licenses,setLicenses] = useState<LicensesType[]>([])
-    const [values, setValues] = useState<{date: string, license: string}>({date: '', license: '멀티미디어콘텐츠제작전문가/기사'})
+    const [values, setValues] = useState<{date: string, license: string}>({date: '', license: ''})
 
     const router = useRouter();
     
@@ -20,8 +20,20 @@ const Banner = () => {
               console.log('licenses error',error)
             }
         }
+        
         getLicenses();
     }, [])
+
+    useEffect(()=>{
+      if(licenses.length){
+        setValues((prev) => {
+        return {...prev, license :`${licenses[0].license_name}/${licenses[0].test_category}`}
+      })
+      }
+      
+    },[licenses])
+
+   
 
     const onChangeHandler = (event :React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
       const {name, value} = event.target;
