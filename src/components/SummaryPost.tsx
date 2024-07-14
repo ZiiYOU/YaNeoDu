@@ -1,3 +1,5 @@
+"use client"
+
 import { Post } from "@/types/post";
 import Link from "next/link";
 
@@ -6,13 +8,11 @@ interface Props {
 }
 
 export default function SummaryPost({currentItems}: Props) {
-  console.log(currentItems)
-
   return (
     <div>
       {
         currentItems?.map(item => 
-          <Link href={`/board/${item.post_id}`}>
+          <Link href={`/board/${item.post_id}`} key={item.post_id}>
             <ul className="text-[12px] h-[45px] flex items-center border-b border-dotted">
               <li className="w-[15%] p-1 text-center">{item.license_name}</li>
               <li className="w-[10%] p-1 text-center">{item.category}</li>
