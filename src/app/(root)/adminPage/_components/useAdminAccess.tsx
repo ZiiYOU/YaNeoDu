@@ -1,4 +1,3 @@
-"use client"
 import useAuthStore from "@/zustand/store/authStore"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
