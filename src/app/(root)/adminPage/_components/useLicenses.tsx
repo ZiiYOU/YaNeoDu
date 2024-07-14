@@ -23,7 +23,6 @@ const useLicenses = () => {
     fetchData()
   }, [])
 
-  // supabase 승인 상태 업데이트 & 승인 일자 업데이트
   const handleConfirm = async (license_check_id: string, is_confirm: boolean) => {
     try {
       const updatedConfirmStatus = !is_confirm;
@@ -50,7 +49,9 @@ const useLicenses = () => {
       console.error('에러 발생', error);
     }
   };
-
+  
+  
+  
   // 승인 여부 필터링
   const filteredLicenses = licenses.filter((license)=> {
     if(filterData === 'pending') return !license.is_confirm
