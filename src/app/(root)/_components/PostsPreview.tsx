@@ -9,7 +9,6 @@ import Link from 'next/link';
 const PostsPreview = () => {
     const [posts, setPosts] = useState<{[key:string] : PostsType[]}>({review:[], question:[]});
 
-
     useEffect(()=>{
   
       const getReviewPosts = async () => {
@@ -24,6 +23,7 @@ const PostsPreview = () => {
             console.log('review error', error)
         }    
       }
+      
   
       const getQuestionPosts = async () => {
         try{
