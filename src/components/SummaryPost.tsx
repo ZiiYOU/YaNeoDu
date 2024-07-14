@@ -8,10 +8,11 @@ interface Props {
 }
 
 export default function SummaryPost({currentItems}: Props) {
+  
   return (
     <div>
       {
-        currentItems?.map(item => 
+        currentItems.length ? currentItems.map(item => 
           <Link href={`/board/${item.post_id}`} key={item.post_id}>
             <ul className="text-[12px] h-[45px] flex items-center border-b border-dotted">
               <li className="w-[15%] p-1 text-center">{item.license_name}</li>
@@ -23,6 +24,8 @@ export default function SummaryPost({currentItems}: Props) {
             </ul>
           </Link>
         )
+        :
+        <div className="text-[12px] h-[45px] flex items-center justify-center">게시물이 없습니다.</div>
       }
     </div>
   )

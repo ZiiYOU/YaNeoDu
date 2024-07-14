@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const supabase = createClient()
 
-  const {data, error} = await supabase.from('posts').select('*')
+  const {data, error} = await supabase.from('posts').select('*').order("created_at", {ascending: false})
 
   if(error) return NextResponse.json({error: error.message})
 

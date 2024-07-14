@@ -1,6 +1,7 @@
 "use client"
 
 import { SendComment } from "@/types/comment"
+import useAuthStore from "@/zustand/store/authStore"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useRef } from "react"
@@ -11,26 +12,25 @@ interface Props {
 
 export default function CommentWrite({paramsId}: Props) {
   const router = useRouter()
+  const {user} = useAuthStore(state => state)
   const content = useRef<HTMLTextAreaElement>(null)
+
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     if(!content.current?.value.trim()) {
       alert("작성된 내용이 없습니다.")
       return 
     }
-    try {
-      const comment: SendComment = {
-        post_id: paramsId,
-        user_id: "댓글을 작성한 사용자의 고유 ID",
-        nickname: "댓글을 작성한 사용자의 닉네임",
-        content: content.current.value,
-      }
-      /* const response = await axios.post("/api/posts/comment", comment); */
-      /* 이곳에 등록에 따른 alert 작성 */
+    const comment: SendComment = {
+      post_id: paramsId,
+      user_id: user?.user_id!,
+      nickname: user?.nickname!,
+      content: content.current.value,
+    }
+    const res = await axios.post("/api/posts/comment", comment);
+    if(res.status === 200) {
       content.current.value=""
-      router.refresh()
-    } catch (error) {
-      console.error("Error posting data:", error);
+      location.reload()
     }
   }
 
