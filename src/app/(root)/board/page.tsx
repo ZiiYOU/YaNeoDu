@@ -6,8 +6,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BoardPagination from "@/components/BoardPagination";
 import PostsFilter from "@/components/PostsFilter";
+import useAuthStore from "@/zustand/store/authStore";
+import { useRouter } from "next/navigation";
 
 export default function Board() {
+  const {isAuthenticated} = useAuthStore(state => state)
+  const router = useRouter()
 
   const [items, setItems] = useState<[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -15,11 +19,14 @@ export default function Board() {
   const ITEMS_PER_PAGE = 10;
   
   useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login')
+      return
+    }
     const fetchData = async () => {
       const {data} = await axios.get("/api/posts");
       setItems(data);
     };
-
     fetchData();
   }, []);
 
@@ -27,15 +34,15 @@ export default function Board() {
     setCurrentPage(pageNumber);
   };
 
-  const currentItems = items.slice(
+  const currentItems = items ? items.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * (ITEMS_PER_PAGE - 1)
-  );
+  ) : [];
 
   return (
     <>
       <div className="flex justify-between items-center p-3">
-        <h1 className="text-2xl">질문 및 후기</h1>
+        <h1 className="text-2xl"><Link className="transition-all hover:text-theme-color" href={"/board"}>질문 및 후기</Link></h1>
         <Link
           className="text-gray-200 text-sm p-2 pl-12 pr-12 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]"
           href={"/board/write"}
@@ -59,7 +66,7 @@ export default function Board() {
           <SummaryPost currentItems={currentItems} />
         </div>
       </div>
-      <PostsFilter />
+      <PostsFilter setItems={setItems} />
       <div className="flex justify-center items-center mt-3 text-sm">
         <BoardPagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} currentPage={currentPage} onPageChange={handlePageChange}  />
       </div>
