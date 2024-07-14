@@ -58,16 +58,8 @@ export default function Detail(request: NextRequest) {
       </div>
     );
   }
-// Event 의 타입을 Select 와 Input 을 통일시키는 법은 없는 걸까요?
-  const onChangeInputHandler = (event :React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setValues((prev)=>{
-      return {...prev, [name]:value}
-    })
-    console.log(values)
-  }
 
-  const onChangeSelectHandler = (event :React.ChangeEvent<HTMLSelectElement>) => {
+  const onChangeHandler = (event :React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
     const {name, value} = event.target;
     setValues((prev)=>{
       return {...prev, [name]:value}
@@ -93,8 +85,12 @@ export default function Detail(request: NextRequest) {
       <div className="relative max-w-7xl mx-auto mt-8 px-10 flex flex-row justify-center">
         <section className="w-3/4 px-10 flex flex-col items-center mb-20">
             <div className="min-w-full flex flex-col justify-center px-20 mt-8">
-              {test.map((info)=>{
-                return (<table key={info.test_id} className='min-w-full flex flex-col justify-center border-2 border-solid border-slate-300 rounded-sm' >
+              {test.length===0? (
+                <div className='min-w-full p-8 flex flex-col justify-center border border-solid border-slate-300 bg-white rounded-lg drop-shadow-md'>
+                  올해 예정된 시험 일정이 없습니다.
+                </div>
+              ): (test.map((info)=>{
+                return (<table key={info.test_id} className='min-w-full flex flex-col justify-center border border-solid border-slate-300 rounded-sm drop-shadow-md' >
                           <TestTableRow title='필기시험 원서접수 기간' data={info.written_apply_duration} />
                           <TestTableRow title='필기시험 응시기간' data={`${info.written_test_start} - ${info.written_test_end}`} />
                           <TestTableRow title='필기시험 합격자 발표일' data={info.written_result_duration} />
@@ -102,13 +98,13 @@ export default function Detail(request: NextRequest) {
                           <TestTableRow title='실기시험 응시기간' data={`${info.practical_test_start} - ${info.practical_test_end}`} />
                           <TestTableRow title='실기시험 합격자 발표일' data={info.practical_result_duration} />
                         </table>)
-              })}
+              }))}
             </div>
         </section>
         <div className='sticky w-1/3 h-full mr-20 top-72  '>
           <aside className="min-w-64 h-1/4 bg-gray-100 border border-solid border-gray-300 flex flex-col rounded-lg mr-8 p-6 mb-4 drop-shadow-lg">
-            <input type="date" name='date' value={values.date} onChange={onChangeInputHandler} className="bg-white border border-solid border-gray-300 rounded p-1 mb-3" />
-            <select name='license' value={values.license} onChange={onChangeSelectHandler} className="bg-white border border-solid border-gray-300 rounded p-1 mb-3">
+            <input type="date" name='date' value={values.date} onChange={onChangeHandler} className="bg-white border border-solid border-gray-300 rounded p-1 mb-3" />
+            <select name='license' value={values.license} onChange={onChangeHandler} className="bg-white border border-solid border-gray-300 rounded p-1 mb-3">
               {licenses.map((license)=>{
                 return <option key={license.license_id} value={`${license.license_name}/${license.test_category}`} >{license.license_name}</option>
               })}
