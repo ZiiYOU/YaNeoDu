@@ -1,10 +1,9 @@
-"use client"
-
 import { Post } from "@/types/post";
 import Link from "next/link";
 import CommentSection from "@/components/CommentSection";
 import ViewCount from "@/components/ViewCount";
 import { getPostsData } from "@/app/_api/posts";
+import PostButtons from "@/components/PostButtons";
 
 export default async function Detail({params}: {params: {id: number}}) {
   const item: Post = await getPostsData(params.id)
@@ -43,25 +42,14 @@ export default async function Detail({params}: {params: {id: number}}) {
               <p className="text-gray-400">{item.created_at}</p>
             </div>
             <div className="flex items-center gap-3">
-              <button
-                className=" hover:underline hover:text-theme-color"
-                title="글 삭제하기"
-              >
-                삭제하기
-              </button>
-              <button
-                className=" hover:underline hover:text-theme-color"
-                title="글 수정하기"
-              >
-                수정하기
-              </button>
+              <PostButtons item={item} />
               <ViewCount views={item.views} id={params.id} />
             </div>
           </div>
         </div>
         <p className="h-[1px] w-full ml-auto mr-auto bg-slate-300"></p>
-        <div className="text-sm p-3">
-          {item.content}
+        <div>
+          <pre className="text-sm p-3 text-wrap">{item.content}</pre>
         </div>
       </div>
       <CommentSection paramsId={params.id}/>

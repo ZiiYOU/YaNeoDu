@@ -3,7 +3,6 @@
 import { GetComment } from "@/types/comment"
 import useAuthStore from "@/zustand/store/authStore"
 import axios from "axios"
-import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 interface Props {
@@ -12,8 +11,6 @@ interface Props {
 
 export default function Comment({paramsId}: Props) {
   const [items, setItems] = useState<GetComment[]>([])
-  const router = useRouter()
-
   const {user} = useAuthStore((state) => state);
 
 
@@ -26,11 +23,14 @@ export default function Comment({paramsId}: Props) {
   }, [])
 
   const handleDelete = async (commentId: number, userId: string) => {
-    /* id와 현재 로그인한 사용자의 고유 id가 일치하는지 검사 */
+    console.log("유저 고유 ID 가 같나?", user?.user_id, userId)
+
+    if(!confirm("댓글을 삭제하시겠습니까?")) return 
     if(user?.user_id !== userId) {
       alert("잘못된 접근입니다.")
       return 
     }
+
     const res = await axios.delete(`/api/posts/comment`, {
       params: {
         commentId: commentId
@@ -38,7 +38,7 @@ export default function Comment({paramsId}: Props) {
     })
     if(res.status === 200) {
       alert("댓글이 삭제되었습니다.")
-      router.refresh()
+      location.reload()
     } else {
       alert("요청을 처리중에 문제가 발생했습니다. 다시 시도해보세요")
     }
@@ -56,9 +56,9 @@ export default function Comment({paramsId}: Props) {
               <li className="w-[55%] text-left overflow-hidden white">
                 {item.content}
               </li>
-              <li className="w-[20%] text-gray-400">{item.created_at}</li>
-              <li className="w-[10%] flex justify-evenly">
-                <button onClick={() => handleDelete(item.comment_id, item.user_id)} className={user?.user_id ? "p-1 hover:text-theme-color" : "hidden"} title="삭제하기">
+              <li className="w-[20%] text-[12px] text-gray-400">{item.created_at.replace("T", " ").slice(0, 19)}</li>
+              <li className="w-[6%] flex justify-evenly">
+                <button onClick={() => handleDelete(item.comment_id, item.user_id)} className={user?.user_id === item.user_id ? "p-1 hover:text-theme-color" : "hidden"} title="삭제하기">
                   ✕
                 </button>
               </li>

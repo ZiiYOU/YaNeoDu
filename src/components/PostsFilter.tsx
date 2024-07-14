@@ -50,7 +50,7 @@ export default function PostsFilter({setItems}: Props) {
     }
     console.log("선택한 옵션은?",licenseOption, categoryOption)
     
-    const {data} = await axios.get("http://localhost:3000/api/posts/filteredPost", {
+    const {data} = await axios.get("/api/posts/filteredPost", {
       params: {
         license: licenseOption,
         category: categoryOption,

@@ -7,8 +7,6 @@ interface Props {
 }
 
 export default function CommentSection({paramsId}: Props) {
-  
-
   return (
     <>
       <CommentWrite paramsId={paramsId} />

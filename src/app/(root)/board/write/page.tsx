@@ -32,9 +32,9 @@ export default function Write() {
   const router = useRouter();
 
   useEffect(() => {
-    /* if (!isAuthenticated) {
-      router.push('/login')
-    } */
+    if (!isAuthenticated) {
+      return router.push('/login')
+    }
 
     const getLicenses = async () => {
       const {data} = await axios.get('/api/licenses')
@@ -48,7 +48,6 @@ export default function Write() {
   }, [])
 
   const handlePost = async (e: React.FormEvent): Promise<void> => {
-    /* 미완성 , 전역으로 관리되는 유저 정보를 가지고 와야 한다.*/
     e.preventDefault()
     if(!title.current?.value.trim() || !content.current?.value.trim()) {
       alert("작성된 제목 또는 내용이 없습니다.")
@@ -60,18 +59,20 @@ export default function Write() {
     }
     try {
       const post: Send = {
-        user_id: "로그인 상태의 사용자 고유 ID",
-        nickname: "로그인 상태의 사용자 닉네임",
+        user_id: user!.user_id,
+        nickname: user!.nickname,
         license_name: licenseOption!,
         category: categoryOption!,
         is_confirm: certify,
-        comments: null,
         views: 0,
         title: title.current!.value,
         content: content.current!.value
       }
-      const response = await axios.post("/api/posts", post);
-      router.push("/board")
+      const res = await axios.post("/api/posts", post);
+      if(res.status === 200) {
+        alert("게시글 등록이 완료되었습니다.")
+        return router.push("/board")
+      }
     } catch (error) {
       console.error("Error posting data:", error);
     }
@@ -101,7 +102,7 @@ export default function Write() {
           </div>
         </div>
         <input type="text" ref={title} className="bg-[#fefefe] p-2 text-sm rounded-md border resize-none w-full outline-none" placeholder="제목을 입력하세요"/>
-        <textarea cols={100} wrap='hard' ref={content} className="bg-[#fefefe] p-2 rounded-md border h-[525px] resize-none w-full outline-none text-sm" placeholder="내용을 입력하세요. 자격증 종류 또는 카테고리에 해당하지 않는 글을 작성 시 삭제될 수 있습니다.">
+        <textarea cols={100} wrap="hard" ref={content} className="bg-[#fefefe] p-2 rounded-md border h-[525px] resize-none w-full outline-none text-sm" placeholder="내용을 입력하세요. 자격증 종류 또는 카테고리에 해당하지 않는 글을 작성 시 삭제될 수 있습니다.">
         </textarea>
         <div className="flex justify-end gap-3">
           <button className="text-gray-200 text-sm text-center w-[120px] pt-2 pb-2 bg-theme-color rounded-md transition-all hover:bg-[#0073c6]">등록하기</button>

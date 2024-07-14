@@ -13,7 +13,7 @@ export default function ViewCount({id, views}: Props) {
     const view = {
       views,
     }
-    await axios.patch(`/api/posts/${id}`, view)
+    await axios.patch(`/api/posts/${id}/viewCount`, view)
     console.log("업데이트 완료?")
   }
 
