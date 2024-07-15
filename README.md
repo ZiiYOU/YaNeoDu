@@ -42,100 +42,100 @@
 
 ### 폴더 구조
 
-📦src
- ┣ 📂app
- ┃ ┣ 📂(root)
- ┃ ┃ ┣ 📂_components
- ┃ ┃ ┃ ┣ 📜Banner.tsx
- ┃ ┃ ┃ ┣ 📜Footer.tsx
- ┃ ┃ ┃ ┣ 📜Header.tsx
- ┃ ┃ ┃ ┣ 📜PostsPreview.tsx
- ┃ ┃ ┃ ┗ 📜postBox.tsx
- ┃ ┃ ┣ 📂adminPage
- ┃ ┃ ┃ ┣ 📂_components
- ┃ ┃ ┃ ┃ ┣ 📜Category.tsx
- ┃ ┃ ┃ ┃ ┣ 📜ConfirmState.tsx
- ┃ ┃ ┃ ┃ ┣ 📜LicenseLists.tsx
- ┃ ┃ ┃ ┃ ┣ 📜useAdminAccess.tsx
- ┃ ┃ ┃ ┃ ┗ 📜useLicenses.tsx
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┣ 📂board
- ┃ ┃ ┃ ┣ 📂[id]
- ┃ ┃ ┃ ┃ ┣ 📂rewrite
- ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┃ ┣ 📂write
- ┃ ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┃ ┣ 📜layout.tsx
- ┃ ┃ ┃ ┣ 📜loading.tsx
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┣ 📂detail
- ┃ ┃ ┃ ┣ 📂_component
- ┃ ┃ ┃ ┃ ┣ 📜ResultTable.tsx
- ┃ ┃ ┃ ┃ ┣ 📜Sticky.tsx
- ┃ ┃ ┃ ┃ ┗ 📜TestTableRow.tsx
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┣ 📂login
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┣ 📂my
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┣ 📂signup
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┣ 📜layout.tsx
- ┃ ┃ ┗ 📜page.tsx
- ┃ ┣ 📂_api
- ┃ ┃ ┗ 📜posts.ts
- ┃ ┣ 📂api
- ┃ ┃ ┣ 📂licenseTest
- ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┣ 📂licenses
- ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┣ 📂licensesCheck
- ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┗ 📂posts
- ┃ ┃ ┃ ┣ 📂[id]
- ┃ ┃ ┃ ┃ ┣ 📂viewCount
- ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┃ ┣ 📂comment
- ┃ ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┃ ┣ 📂filteredPost
- ┃ ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┃ ┣ 📂question
- ┃ ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┃ ┣ 📂review
- ┃ ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┣ 📂auth
- ┃ ┃ ┗ 📂confirm
- ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┣ 📂components
- ┃ ┃ ┣ 📜Input.tsx
- ┃ ┃ ┗ 📜LicensesList.tsx
- ┃ ┣ 📜favicon.ico
- ┃ ┣ 📜globals.css
- ┃ ┗ 📜layout.tsx
- ┣ 📂components
- ┃ ┣ 📜BoardPagination.tsx
- ┃ ┣ 📜Comment.tsx
- ┃ ┣ 📜CommentSection.tsx
- ┃ ┣ 📜CommentWrite.tsx
- ┃ ┣ 📜PostButtons.tsx
- ┃ ┣ 📜PostsFilter.tsx
- ┃ ┣ 📜SummaryPost.tsx
- ┃ ┗ 📜ViewCount.tsx
- ┣ 📂supabase
- ┃ ┣ 📜client.ts
- ┃ ┣ 📜middleware.ts
- ┃ ┗ 📜server.ts
- ┣ 📂types
- ┃ ┣ 📜admin.ts
- ┃ ┣ 📜comment.ts
- ┃ ┣ 📜licensesType.ts
- ┃ ┣ 📜post.ts
- ┃ ┣ 📜postsType.ts
- ┃ ┣ 📜testType.ts
- ┃ ┗ 📜user.ts
- ┗ 📂zustand
- ┃ ┗ 📂store
- ┃ ┃ ┗ 📜authStore.ts
+📦src<br/>
+ ┣ 📂app<br/>
+ ┃ ┣ 📂(root)<br/>
+ ┃ ┃ ┣ 📂_components<br/>
+ ┃ ┃ ┃ ┣ 📜Banner.tsx<br/>
+ ┃ ┃ ┃ ┣ 📜Footer.tsx<br/>
+ ┃ ┃ ┃ ┣ 📜Header.tsx<br/>
+ ┃ ┃ ┃ ┣ 📜PostsPreview.tsx<br/>
+ ┃ ┃ ┃ ┗ 📜postBox.tsx<br/>
+ ┃ ┃ ┣ 📂adminPage<br/>
+ ┃ ┃ ┃ ┣ 📂_components<br/>
+ ┃ ┃ ┃ ┃ ┣ 📜Category.tsx<br/>
+ ┃ ┃ ┃ ┃ ┣ 📜ConfirmState.tsx<br/>
+ ┃ ┃ ┃ ┃ ┣ 📜LicenseLists.tsx<br/>
+ ┃ ┃ ┃ ┃ ┣ 📜useAdminAccess.tsx<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜useLicenses.tsx<br/>
+ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┣ 📂board<br/>
+ ┃ ┃ ┃ ┣ 📂[id]<br/>
+ ┃ ┃ ┃ ┃ ┣ 📂rewrite<br/>
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┃ ┣ 📂write<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┃ ┣ 📜layout.tsx<br/>
+ ┃ ┃ ┃ ┣ 📜loading.tsx<br/>
+ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┣ 📂detail<br/>
+ ┃ ┃ ┃ ┣ 📂_component<br/>
+ ┃ ┃ ┃ ┃ ┣ 📜ResultTable.tsx<br/>
+ ┃ ┃ ┃ ┃ ┣ 📜Sticky.tsx<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜TestTableRow.tsx<br/>
+ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┣ 📂login<br/>
+ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┣ 📂my<br/>
+ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┣ 📂signup<br/>
+ ┃ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┃ ┣ 📜layout.tsx<br/>
+ ┃ ┃ ┗ 📜page.tsx<br/>
+ ┃ ┣ 📂_api<br/>
+ ┃ ┃ ┗ 📜posts.ts<br/>
+ ┃ ┣ 📂api<br/>
+ ┃ ┃ ┣ 📂licenseTest<br/>
+ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┣ 📂licenses<br/>
+ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┣ 📂licensesCheck<br/>
+ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┗ 📂posts<br/>
+ ┃ ┃ ┃ ┣ 📂[id]<br/>
+ ┃ ┃ ┃ ┃ ┣ 📂viewCount<br/>
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┃ ┣ 📂comment<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┃ ┣ 📂filteredPost<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┃ ┣ 📂question<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┃ ┣ 📂review<br/>
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┣ 📂auth<br/>
+ ┃ ┃ ┗ 📂confirm<br/>
+ ┃ ┃ ┃ ┗ 📜route.ts<br/>
+ ┃ ┣ 📂components<br/>
+ ┃ ┃ ┣ 📜Input.tsx<br/>
+ ┃ ┃ ┗ 📜LicensesList.tsx<br/>
+ ┃ ┣ 📜favicon.ico<br/>
+ ┃ ┣ 📜globals.css<br/>
+ ┃ ┗ 📜layout.tsx<br/>
+ ┣ 📂components<br/>
+ ┃ ┣ 📜BoardPagination.tsx<br/>
+ ┃ ┣ 📜Comment.tsx<br/>
+ ┃ ┣ 📜CommentSection.tsx<br/>
+ ┃ ┣ 📜CommentWrite.tsx<br/>
+ ┃ ┣ 📜PostButtons.tsx<br/>
+ ┃ ┣ 📜PostsFilter.tsx<br/>
+ ┃ ┣ 📜SummaryPost.tsx<br/>
+ ┃ ┗ 📜ViewCount.tsx<br/>
+ ┣ 📂supabase<br/>
+ ┃ ┣ 📜client.ts<br/>
+ ┃ ┣ 📜middleware.ts<br/>
+ ┃ ┗ 📜server.ts<br/>
+ ┣ 📂types<br/>
+ ┃ ┣ 📜admin.ts<br/>
+ ┃ ┣ 📜comment.ts<br/>
+ ┃ ┣ 📜licensesType.ts<br/>
+ ┃ ┣ 📜post.ts<br/>
+ ┃ ┣ 📜postsType.ts<br/>
+ ┃ ┣ 📜testType.ts<br/>
+ ┃ ┗ 📜user.ts<br/>
+ ┗ 📂zustand<br/>
+ ┃ ┗ 📂store<br/>
+ ┃ ┃ ┗ 📜authStore.ts<br/>
