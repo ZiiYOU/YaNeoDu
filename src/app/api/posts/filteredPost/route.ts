@@ -14,17 +14,17 @@ export async function GET(req:NextRequest) {
   /* value가 "all"인 경우에는 해당 항목의 전체를 검색한다. */
 
   if(license === "all" && category === "all") {
-    const {data, error} = await supabase.from('posts').select('*')
+    const {data, error} = await supabase.from('posts').select('*').order("created_at", {ascending: false})
     if(error) return NextResponse.json({error: error.message})
 
     return NextResponse.json(data, {status: 200})
   } else if (license === "all" && category !== "all") {
-    const {data, error} = await supabase.from('posts').select('*').eq("category", category)
+    const {data, error} = await supabase.from('posts').select('*').eq("category", category).order("created_at", {ascending: false})
     if(error) return NextResponse.json({error: error.message})
 
     return NextResponse.json(data, {status: 200})
   } else if (license !== "all" && category === "all") {
-    const {data, error} = await supabase.from('posts').select('*').eq("license_name", license)
+    const {data, error} = await supabase.from('posts').select('*').eq("license_name", license).order("created_at", {ascending: false})
     if(error) return NextResponse.json({error: error.message})
 
     return NextResponse.json(data, {status: 200})

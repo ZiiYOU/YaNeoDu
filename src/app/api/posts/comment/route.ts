@@ -26,9 +26,7 @@ export async function GET(req: NextRequest) {
 
   const id = searchParams.get("id")
 
-  console.log(searchParams.get("id"))
-
-  const {data, error} = await supabase.from('comments').select('*').eq("post_id", id)
+  const {data, error} = await supabase.from('comments').select('*').eq("post_id", id).order("created_at", {ascending: false})
 
   if(error) return NextResponse.json({error: error.message})
 
@@ -40,8 +38,6 @@ export async function DELETE(req: NextRequest) {
 
   const {searchParams} = new URL(req.url)
   const commentId = searchParams.get("commentId")
-
-  console.log(commentId)
 
   const { error } = await supabase
   .from('comments')

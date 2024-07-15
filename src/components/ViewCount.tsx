@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 type Props = {
   views: number,
-  id: number,
+  id: string,
 }
 
 export default function ViewCount({id, views}: Props) {

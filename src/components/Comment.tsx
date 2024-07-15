@@ -3,15 +3,17 @@
 import { GetComment } from "@/types/comment"
 import useAuthStore from "@/zustand/store/authStore"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 interface Props {
-  paramsId: number
+  paramsId: string
 }
 
 export default function Comment({paramsId}: Props) {
   const [items, setItems] = useState<GetComment[]>([])
   const {user} = useAuthStore((state) => state);
+  const router = useRouter()
 
 
   useEffect(() => {
@@ -23,7 +25,6 @@ export default function Comment({paramsId}: Props) {
   }, [])
 
   const handleDelete = async (commentId: number, userId: string) => {
-
     if(!confirm("댓글을 삭제하시겠습니까?")) return 
     if(user?.user_id !== userId) {
       alert("잘못된 접근입니다.")

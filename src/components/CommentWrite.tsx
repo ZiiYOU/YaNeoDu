@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { useRef } from "react"
 
 interface Props {
-  paramsId: number
+  paramsId: string
 }
 
 export default function CommentWrite({paramsId}: Props) {
@@ -22,7 +22,7 @@ export default function CommentWrite({paramsId}: Props) {
       return 
     }
     const comment: SendComment = {
-      post_id: paramsId,
+      post_id: +paramsId,
       user_id: user?.user_id!,
       nickname: user?.nickname!,
       content: content.current.value,

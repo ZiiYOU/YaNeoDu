@@ -32,8 +32,6 @@ export async function PATCH(req: NextRequest, {params}: {params: {id: number}}) 
   const id = params.id
   const {title, content} = await req.json()
 
-  console.log("id와 post의 값은?", id, title, content)
-  
   const { data, error } = await supabase
   .from('posts')
   .update({ title, content })

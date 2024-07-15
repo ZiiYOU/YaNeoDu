@@ -6,8 +6,6 @@ export async function PATCH(req: NextRequest, {params}: {params: {id: number}}) 
 
   const id = params.id
   const {views} = await req.json()
-
-  console.log("id와 views의 값은?", id, views)
   
   const { data, error } = await supabase
   .from('posts')
