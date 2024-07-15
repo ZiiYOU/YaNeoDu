@@ -6,7 +6,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 
 type Props = {
-  item: Post
+  item: Post | null
 }
 
 export default function PostButtons({item}: Props) {
@@ -14,12 +14,12 @@ export default function PostButtons({item}: Props) {
   const {user} = useAuthStore(state => state)
 
   const handleDelete = async () => {
-    if(user?.user_id !== item.user_id) {
+    if(user?.user_id !== item?.user_id) {
       alert("잘못된 접근입니다.")
       return
     }
     if(!confirm("작성하신 글을 삭제하시겠습니까?")) return 
-    const res = await axios.delete(`/api/posts/${item.post_id}`)
+    const res = await axios.delete(`/api/posts/${item?.post_id}`)
     if(res.status === 200) {
       alert("정상적으로 삭제되었습니다.")
       router.push("/board")
@@ -28,16 +28,16 @@ export default function PostButtons({item}: Props) {
   }
 
   const goRewrite = async () => {
-    if(user?.user_id !== item.user_id) {
+    if(user?.user_id !== item?.user_id) {
       alert("잘못된 접근입니다.")
       return
     }
-    router.push(`/board/${item.post_id}/rewrite`)
+    router.push(`/board/${item?.post_id}/rewrite`)
   }
 
   return (
     <>
-      {user?.user_id === item.user_id ? 
+      {user?.user_id === item?.user_id ? 
       <div className="flex gap-3">
         <button
           className=" hover:underline hover:text-theme-color"

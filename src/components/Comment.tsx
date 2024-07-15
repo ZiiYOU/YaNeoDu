@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 interface Props {
-  paramsId: number
+  paramsId: string
 }
 
 export default function Comment({paramsId}: Props) {

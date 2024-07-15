@@ -3,7 +3,7 @@ import CommentWrite from './CommentWrite'
 import Comment from './Comment'
 
 interface Props {
-  paramsId: number
+  paramsId: string
 }
 
 export default function CommentSection({paramsId}: Props) {
