@@ -6,6 +6,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { MoonLoader } from "react-spinners";
 import { v4 as uuidv4 } from 'uuid';
 import LicensesTr from "./LicensesTr";
 
@@ -152,8 +153,8 @@ function LicensesList({ profileId }: { profileId?: string }) {
 
   const handleCopyClipBoard = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(`http://localhost:3000/profile/${userEmail}`);
-      alert('클립보드에 링크가 복사되었습니다.');
+      await navigator.clipboard.writeText(`${window.location.origin}/profile/${userEmail}`);
+      alert('공유 링크 복사가 복사되었습니다.');
     } catch (e) {
       alert('복사에 실패하였습니다');
     }
@@ -161,7 +162,7 @@ function LicensesList({ profileId }: { profileId?: string }) {
 
 
   if (loading) {
-    return <div>로딩 중...</div>;
+    return <div className="h-[calc(100vh-224px)] flex items-center justify-center"><MoonLoader color={"#0090F9"} /></div>;
   }
 
   if (error) {
