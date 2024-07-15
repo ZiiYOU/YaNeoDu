@@ -23,7 +23,6 @@ export default function Comment({paramsId}: Props) {
   }, [])
 
   const handleDelete = async (commentId: number, userId: string) => {
-    console.log("유저 고유 ID 가 같나?", user?.user_id, userId)
 
     if(!confirm("댓글을 삭제하시겠습니까?")) return 
     if(user?.user_id !== userId) {

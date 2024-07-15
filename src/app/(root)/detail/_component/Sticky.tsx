@@ -4,7 +4,7 @@ import { LicensesType } from '@/types/licensesType';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 const Sticky = () => {
     const [licenses, setLicenses] = useState<LicensesType[]>([]);
@@ -19,7 +19,6 @@ const Sticky = () => {
             setLicenses(data)
             
           }catch(error){
-            console.log('fetch data error => ', error)
           }
         }
     
@@ -42,7 +41,6 @@ const Sticky = () => {
         setValues((prev)=>{
           return {...prev, [name]:value}
         })
-        console.log(values)
       }
     
       const onSubmitHandler = () => {

@@ -1,7 +1,7 @@
 "use client"
 import { createClient } from "@/supabase/client";
 import useAuthStore from "@/zustand/store/authStore";
-import Link from "next/link"
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 const supabase = createClient()
 
@@ -22,10 +22,8 @@ function Header() {
         router.push('/')
       }
     } catch (error) {
-      //console.log(error);
     }
   };
-  console.log(isAdmin)
 
   return (
     <div className="fixed z-10 top-0 px-12 w-full h-16 bg-white border border-solid border-b-default-color drop-shadow-md flex flex-row items-center justify-between">

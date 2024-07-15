@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from "@/supabase/client";
+import { NextRequest, NextResponse } from 'next/server';
 
 
 export async function GET (request : NextRequest) {
@@ -18,7 +17,6 @@ export async function GET (request : NextRequest) {
   .gte('written_test_start',date)
   .limit(1);
 
-  if (error) return NextResponse.json(console.log(error), { status: 401 });
 
   return NextResponse.json(data);
 
