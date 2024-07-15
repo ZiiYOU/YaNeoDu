@@ -6,7 +6,7 @@
 - <a href="https://www.naver.com" target="_blank">you can do it !</a>
 
 # 주요 기능
-- API를 통해 자격증 시험 일정 및 합격 후기 조회
+- 자격증 시험 일정 및 합격 후기 조회
 - 게시판을 통해 합격자 후기 및 관련 Q&A 커뮤니티 (CRUD)
 - 본인이 취득한 자격증 등록 & 다른 유저에게 공유 가능한 프로필 페이지
 - 로그인 및 회원가입을 통한 인증/인가
@@ -39,3 +39,103 @@
 - 김효진 - 관리자 페이지 개발
 - 이녕수 - 게시판 & 게시판 상세, 작성 페이지 개발
 - 이준혁 - 마이 페이지 & 프로필 페이지
+
+### 폴더 구조
+
+📦src
+ ┣ 📂app
+ ┃ ┣ 📂(root)
+ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┣ 📜Banner.tsx
+ ┃ ┃ ┃ ┣ 📜Footer.tsx
+ ┃ ┃ ┃ ┣ 📜Header.tsx
+ ┃ ┃ ┃ ┣ 📜PostsPreview.tsx
+ ┃ ┃ ┃ ┗ 📜postBox.tsx
+ ┃ ┃ ┣ 📂adminPage
+ ┃ ┃ ┃ ┣ 📂_components
+ ┃ ┃ ┃ ┃ ┣ 📜Category.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜ConfirmState.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜LicenseLists.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜useAdminAccess.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜useLicenses.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂board
+ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┣ 📂rewrite
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📂write
+ ┃ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┃ ┣ 📜loading.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂detail
+ ┃ ┃ ┃ ┣ 📂_component
+ ┃ ┃ ┃ ┃ ┣ 📜ResultTable.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜Sticky.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜TestTableRow.tsx
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂my
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📂signup
+ ┃ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┃ ┣ 📜layout.tsx
+ ┃ ┃ ┗ 📜page.tsx
+ ┃ ┣ 📂_api
+ ┃ ┃ ┗ 📜posts.ts
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂licenseTest
+ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┣ 📂licenses
+ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┣ 📂licensesCheck
+ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┗ 📂posts
+ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┣ 📂viewCount
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂comment
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂filteredPost
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂question
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┣ 📂review
+ ┃ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┣ 📂auth
+ ┃ ┃ ┗ 📂confirm
+ ┃ ┃ ┃ ┗ 📜route.ts
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📜Input.tsx
+ ┃ ┃ ┗ 📜LicensesList.tsx
+ ┃ ┣ 📜favicon.ico
+ ┃ ┣ 📜globals.css
+ ┃ ┗ 📜layout.tsx
+ ┣ 📂components
+ ┃ ┣ 📜BoardPagination.tsx
+ ┃ ┣ 📜Comment.tsx
+ ┃ ┣ 📜CommentSection.tsx
+ ┃ ┣ 📜CommentWrite.tsx
+ ┃ ┣ 📜PostButtons.tsx
+ ┃ ┣ 📜PostsFilter.tsx
+ ┃ ┣ 📜SummaryPost.tsx
+ ┃ ┗ 📜ViewCount.tsx
+ ┣ 📂supabase
+ ┃ ┣ 📜client.ts
+ ┃ ┣ 📜middleware.ts
+ ┃ ┗ 📜server.ts
+ ┣ 📂types
+ ┃ ┣ 📜admin.ts
+ ┃ ┣ 📜comment.ts
+ ┃ ┣ 📜licensesType.ts
+ ┃ ┣ 📜post.ts
+ ┃ ┣ 📜postsType.ts
+ ┃ ┣ 📜testType.ts
+ ┃ ┗ 📜user.ts
+ ┗ 📂zustand
+ ┃ ┗ 📂store
+ ┃ ┃ ┗ 📜authStore.ts

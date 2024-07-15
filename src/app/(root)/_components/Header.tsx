@@ -25,7 +25,7 @@ function Header() {
       //console.log(error);
     }
   };
-  console.log(isAdmin)
+
 
   return (
     <div className="fixed z-10 top-0 px-12 w-full h-16 bg-white border border-solid border-b-default-color drop-shadow-md flex flex-row items-center justify-between">
