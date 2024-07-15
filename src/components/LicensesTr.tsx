@@ -64,7 +64,7 @@ function LicensesTr({ license, onDelete, onChange, isInput = false }: LicensesTr
           <td>
             <Input
               type="date"
-              value={license.license_issue}
+              value={license.license_issue.toString()}
               onChange={(e) => handleChange("license_issue", e.target.value)}
               isDisabled={license.is_confirm}
             />

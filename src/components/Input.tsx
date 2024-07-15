@@ -2,7 +2,7 @@
 
 type InputProps = {
   name?: string;
-  value: string | Date;
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   placeholder?: string;
@@ -15,7 +15,7 @@ function Input({ name='', value, onChange, type = "text", placeholder='', isDisa
       className="w-[95%] h-9 mx-auto border border-[#cccccc] rounded-sm px-2 outline-[#0090F9]"
       type={type}
       name={name}
-      value={value.toString()}
+      value={value}
       placeholder={placeholder}
       disabled={isDisabled}
       onChange={onChange}
