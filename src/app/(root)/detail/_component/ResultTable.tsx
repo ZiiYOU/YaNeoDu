@@ -2,7 +2,7 @@
 
 import { testType } from '@/types/testType';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import TestTableRow from './TestTableRow';
 
 const ResultTable = ({date, test_category} : {date : string | null, test_category:string | null;}) => {
@@ -16,7 +16,6 @@ const ResultTable = ({date, test_category} : {date : string | null, test_categor
             setTest(data)
             setLoading(false)
           }catch(error){
-            console.log(error)
           }
         };
     

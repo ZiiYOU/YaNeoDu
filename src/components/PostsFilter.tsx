@@ -28,7 +28,6 @@ export default function PostsFilter({setItems}: Props) {
   useEffect(() => {
     const getLicenses = async () => {
       const {data} = await axios.get('/api/licenses')
-      console.log(data)
       const licensesArr = data.map((license: { license_name: string }) => ({
         value: license.license_name,
         label: license.license_name,
@@ -48,7 +47,6 @@ export default function PostsFilter({setItems}: Props) {
       alert("항목을 선택 후에 검색해주세요.")
       return 
     }
-    console.log("선택한 옵션은?",licenseOption, categoryOption)
     
     const {data} = await axios.get("/api/posts/filteredPost", {
       params: {
