@@ -36,7 +36,9 @@ function LicensesTr({ license, onDelete, onChange, isInput = false }: LicensesTr
   }, []);
 
   const handleChange = (field: keyof TLicense, value: any) => {
-    onChange(license.license_check_id, { [field]: value });
+    if(onChange){
+      onChange(license.license_check_id, { [field]: value });
+    }
   };
 
   return (
@@ -84,7 +86,11 @@ function LicensesTr({ license, onDelete, onChange, isInput = false }: LicensesTr
             </div>
           </td>
           <td>
-            <button onClick={() => onDelete(license.license_check_id)}>
+            <button onClick={() => {
+              if(onDelete){
+                onDelete(license.license_check_id)
+              }
+              }}>
               <MdDeleteForever color="gray" size={30} />
             </button>
           </td>
@@ -93,7 +99,7 @@ function LicensesTr({ license, onDelete, onChange, isInput = false }: LicensesTr
         <>
           <td>{license.license_name}</td>
           <td>{license.license_number}</td>
-          <td>{license.license_issue}</td>
+          <td>{license.license_issue.toLocaleString()}</td>
           <td>{license.license_sub_number}</td>
           <td>
             <div className="flex justify-center items-center">

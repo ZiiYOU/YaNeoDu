@@ -32,15 +32,16 @@ function LicensesList({ profileId }: { profileId?: string }) {
       if (router === '/my') {
         const { data: { user } } = await supabase.auth.getUser();
 
+        if(!user)return null;
         const { data: profile } = await supabase
           .from("users")
           .select("user_id, birth, name")
           .eq("id", user?.email)
           .single();
-        setUserEmail(user.email);
-        setUserBirth(profile.birth);
-        setUserName(profile.name);
-        setUserId(profile.user_id);
+        setUserEmail(user.email || '');
+        setUserBirth(profile?.birth || '');
+        setUserName(profile?.name || '');
+        setUserId(profile?.user_id || '');
 
         response = await axios.get(`/api/licensesMy/${user.email}`);
       } else if (profileId && typeof profileId === 'string') {
@@ -51,7 +52,7 @@ function LicensesList({ profileId }: { profileId?: string }) {
         .select("name")
         .eq("id", profileId)
         .single();
-        setUserName(profile.name);
+        setUserName(profile?.name);
 
         response = await axios.get(`/api/licensesMy/${profileId}`);
 
@@ -148,7 +149,7 @@ function LicensesList({ profileId }: { profileId?: string }) {
     }
   };
 
-  const handleCopyClipBoard = async (text: string) => {
+  const handleCopyClipBoard = async () => {
     try {
       await navigator.clipboard.writeText(`${window.location.origin}/profile/${userEmail}`);
       alert('공유 링크 복사가 복사되었습니다.');
@@ -220,12 +221,12 @@ function LicensesList({ profileId }: { profileId?: string }) {
             ))
           ) : (
             <tr>
-              <td colSpan="5" className="text-center leading-10">추가한 자격증이 없습니다.</td>
+              <td colSpan={5} className="text-center leading-10">추가한 자격증이 없습니다.</td>
             </tr>
           )
           :
           <tr>
-            <td colSpan="6" className="text-center leading-10">추가한 자격증이 없습니다.</td>
+            <td colSpan={6} className="text-center leading-10">추가한 자격증이 없습니다.</td>
           </tr>
         }
         </tbody>
