@@ -7,14 +7,22 @@ import ViewCount from "@/components/ViewCount";
 import PostButtons from "@/components/PostButtons";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import useAuthStore from "@/zustand/store/authStore";
 
 export default function Detail() {
+  const {isAuthenticated} = useAuthStore(state => state)
+  const router = useRouter()
   const [item, setItem] = useState<Post | null>(null)
   const pathname = usePathname()
   const id = pathname.slice(7)
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/login')
+      return
+    }
+
     const fetchData = async () => {
       const {data} = await axios.get(`/api/posts/${id}`)
       setItem(data)
