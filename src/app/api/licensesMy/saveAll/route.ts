@@ -80,16 +80,10 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, data: results }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
 }
 
-export async function methodNotAllowed(req: NextRequest) {
+/* export async function methodNotAllowed(req: NextRequest) {
   return NextResponse.json({ success: false, message: 'Method not allowed' }, { status: 405 });
-}
-
-export const config = {
-  api: {
-    bodyParser: true,
-  },
-};
+} */
