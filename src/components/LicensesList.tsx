@@ -36,7 +36,7 @@ function LicensesList({ profileId }: { profileId?: string }) {
         const { data: profile } = await supabase
           .from("users")
           .select("user_id, birth, name")
-          .eq("id", user.email)
+          .eq("id", user?.email)
           .single();
         setUserEmail(user.email || '');
         setUserBirth(profile?.birth || '');
