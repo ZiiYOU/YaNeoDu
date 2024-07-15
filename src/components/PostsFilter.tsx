@@ -28,7 +28,6 @@ export default function PostsFilter({setItems}: Props) {
   useEffect(() => {
     const getLicenses = async () => {
       const {data} = await axios.get('/api/licenses')
-      console.log(data)
       const licensesArr = data.map((license: { license_name: string }) => ({
         value: license.license_name,
         label: license.license_name,

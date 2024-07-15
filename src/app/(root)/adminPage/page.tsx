@@ -11,7 +11,7 @@ const Page = () => {
   const { licenses, filterData, setFilterData, handleConfirm, filteredLicenses, formatDate} = useLicenses()
   const { isAdmin, isAuthenticated } = useAdminAccess()
   if(!isAuthenticated || !isAdmin) {
-    return alert('관리자 페이지에 접근할 수 있는 권한이 없습니다')
+    return /* alert('관리자 페이지에 접근할 수 있는 권한이 없습니다') */
   }
   return (
     <div className='max-w-[1300px] mx-auto flex flex-col'>

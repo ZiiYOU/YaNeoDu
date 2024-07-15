@@ -37,20 +37,26 @@ export default function PostButtons({item}: Props) {
 
   return (
     <>
-      <button
-        className=" hover:underline hover:text-theme-color"
-        title="글 삭제하기"
-        onClick={handleDelete}
-      >
-        삭제하기
-      </button>
-      <button
-        className=" hover:underline hover:text-theme-color"
-        title="글 수정하기"
-        onClick={goRewrite}
-      >
-        수정하기
-      </button>
+      {user?.user_id === item.user_id ? 
+      <div className="flex gap-3">
+        <button
+          className=" hover:underline hover:text-theme-color"
+          title="글 삭제하기"
+          onClick={handleDelete}
+        >
+          삭제하기
+        </button>
+        <button
+          className=" hover:underline hover:text-theme-color"
+          title="글 수정하기"
+          onClick={goRewrite}
+        >
+          수정하기
+        </button>
+      </div>
+      :
+      ""
+      }
     </>
   )
 }
