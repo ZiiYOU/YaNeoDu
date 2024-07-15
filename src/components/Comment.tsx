@@ -39,6 +39,7 @@ export default function Comment({paramsId}: Props) {
     if(res.status === 200) {
       alert("댓글이 삭제되었습니다.")
       location.reload()
+      return
     } else {
       alert("요청을 처리중에 문제가 발생했습니다. 다시 시도해보세요")
     }
@@ -47,6 +48,7 @@ export default function Comment({paramsId}: Props) {
   return (
     <>
       {
+        items.length ? 
         items?.map(item => 
           <div className="p-3 border-b border-dotted" key={item.comment_id}>
             <ul className="flex items-center text-sm justify-between text-center">
@@ -65,6 +67,8 @@ export default function Comment({paramsId}: Props) {
             </ul>
           </div>
         )
+        : 
+        <div className="w-full text-center h-[60px] align-middle leading-[60px] text-[12px] text-gray-300">댓글이 없습니다.</div>
       }
     </>
     
