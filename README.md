@@ -3,7 +3,7 @@
   IT관련 자격증 시험 일정 조회 및 커뮤니티 사이트
 
 # 배포 링크
-- <a href="https://www.naver.com" target="_blank">you can do it !</a>
+- <a href="https://youcandoit-jiyoungs-projects-d3377a8b.vercel.app" target="_blank">you can do it !</a>
 
 # 주요 기능
 - 자격증 시험 일정 및 합격 후기 조회
