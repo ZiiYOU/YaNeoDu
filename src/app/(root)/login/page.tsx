@@ -89,11 +89,6 @@ export default function Login() {
                 비밀번호
 
               </label>
-              <div className="text-sm">
-                <a href="#" className="font-semibold text-theme-color hover:text-sky-400">
-                  비밀번호를 까먹으셨나요?
-                </a>
-              </div>
             </div>
             <div className="mt-2">
               <input
