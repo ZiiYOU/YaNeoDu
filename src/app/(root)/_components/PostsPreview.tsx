@@ -2,9 +2,9 @@
 
 import { PostsType } from '@/types/postsType';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import PostBox from './postBox';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import PostBox from './postBox';
 
 const PostsPreview = () => {
     const [posts, setPosts] = useState<{[key:string] : PostsType[]}>({review:[], question:[]});
@@ -14,13 +14,11 @@ const PostsPreview = () => {
       const getReviewPosts = async () => {
         try{
             const res = await axios('/api/posts/review')
-            console.log(res)
             const reviewUpToFive = res.data.sort((a : PostsType, b : PostsType)=>b.post_id-a.post_id).filter((_ :string,idx : number)=>idx<=4)
             setPosts((prev)=>{
               return {...prev, review: reviewUpToFive}
             })
         }catch(error){
-            console.log('review error', error)
         }    
       }
       
@@ -29,12 +27,11 @@ const PostsPreview = () => {
         try{
           const res = await axios ('/api/posts/question')
           const questionUpToFive = res.data.sort((a : PostsType,b : PostsType)=>b.post_id-a.post_id).filter((_ : string,idx : number)=>idx<=4)
-          console.log(res)
+          
           setPosts((prev)=>{
             return {...prev, question: questionUpToFive}
           })
         }catch(error){
-          console.log('question error',error)
         }
       }
   

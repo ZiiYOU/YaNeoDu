@@ -61,7 +61,6 @@ function LicensesList({ profileId }: { profileId?: string }) {
 
       return response.data;
     } catch (error) {
-      console.error("데이터 가져오기 오류:", error);
       setError("데이터 가져오기 오류");
       return [];
     }
@@ -123,7 +122,6 @@ function LicensesList({ profileId }: { profileId?: string }) {
         return newModifiedLicenses;
       });
     } catch (error) {
-      console.error("자격증 삭제 오류:", error);
     }
   };
 
@@ -147,7 +145,6 @@ function LicensesList({ profileId }: { profileId?: string }) {
       alert("모든 자격증이 저장되었습니다.");
       setModifiedLicenses({});
     } catch (error) {
-      console.error("자격증 저장 오류:", error);
     }
   };
 

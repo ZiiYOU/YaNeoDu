@@ -36,13 +36,11 @@ export async function PATCH(req: NextRequest) {
       .eq('license_check_id', license_check_id)
 
     if (error) {
-      console.error('업데이트 중 오류 발생:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
     return NextResponse.json(data, { status: 200 })
   } catch (error) {
-    console.error('PATCH 요청 중 오류 발생:', error)
     return NextResponse.json({ error: '서버 에러 발생' }, { status: 500 })
   }
 }

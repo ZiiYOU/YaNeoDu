@@ -74,7 +74,6 @@ export default function Write() {
         return router.push("/board")
       }
     } catch (error) {
-      console.error("Error posting data:", error);
     }
   };
 

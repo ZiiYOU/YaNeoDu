@@ -29,7 +29,6 @@ function LicensesTr({ license, onDelete, onChange, isInput = false }: LicensesTr
         }));
         setOptions(licenses);
       } catch (error) {
-        console.error("자격증 목록 가져오기 오류:", error);
       }
     };
 

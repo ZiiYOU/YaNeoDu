@@ -1,11 +1,11 @@
 "use client";
 
 import "@/app/globals.css";
-import React, { useEffect, useState } from "react";
-import { createClient } from '@/supabase/client'
-import Router, { useRouter } from "next/navigation";
-import Link from "next/link";
+import { createClient } from '@/supabase/client';
 import useAuthStore from "@/zustand/store/authStore";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 const supabase = createClient()
 
 export default function Signup() {
@@ -62,12 +62,10 @@ export default function Signup() {
         }
       })
       if (error) {
-        console.log(error);
       } else {
         router.push('/');
       }
     } catch (error) {
-      console.log(error);
     }
   }
 

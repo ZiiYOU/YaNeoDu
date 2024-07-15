@@ -15,7 +15,6 @@ export async function GET(request: Request, { params }: { params: { id: string }
     .eq('user_id', id);
 
   if (error) {
-    console.error("Error fetching data:", error);
     return NextResponse.json({ error: "Error fetching data" }, { status: 500 });
   }
 
