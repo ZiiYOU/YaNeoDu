@@ -1,9 +1,9 @@
 
 import LicensesList from '@/components/LicensesList';
-function myPage() {
+function myPage({ params }: { params: { id: string } }) {
   return (
     <div>
-      <LicensesList />
+      <LicensesList profileId={params.id as string}/>
     </div>
   )
 }

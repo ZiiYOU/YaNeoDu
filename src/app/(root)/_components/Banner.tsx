@@ -17,7 +17,6 @@ const Banner = () => {
               const res = await axios('/api/licenses')
               setLicenses(res.data)
             }catch(error){
-              console.log('licenses error',error)
             }
         }
         

@@ -47,7 +47,6 @@ export default function PostsFilter({setItems}: Props) {
       alert("항목을 선택 후에 검색해주세요.")
       return 
     }
-    console.log("선택한 옵션은?",licenseOption, categoryOption)
     
     const {data} = await axios.get("/api/posts/filteredPost", {
       params: {

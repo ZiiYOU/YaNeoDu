@@ -1,6 +1,6 @@
 
-import React, { useEffect, useState } from 'react'
 import { CheckLicense } from '@/types/admin'
+import { useEffect, useState } from 'react'
 const useLicenses = () => {
   const [licenses, setLicenses] = useState<CheckLicense[]>([])
   const [filterData, setFilterData] = useState('pending')
@@ -14,10 +14,8 @@ const useLicenses = () => {
         if (response.ok) {
           setLicenses(data)
         } else {
-          console.error('에러 발생', data.error)
         }
       } catch (error) {
-        console.error('에러 발생', error)
       }
     }
     fetchData()
@@ -43,10 +41,8 @@ const useLicenses = () => {
           license.license_check_id === license_check_id ? { ...license, is_confirm: updatedConfirmStatus, confirm_date: confirmDate } : license
         ));
       } else {
-        console.error('에러 발생', data.error);
       }
     } catch (error) {
-      console.error('에러 발생', error);
     }
   };
   
