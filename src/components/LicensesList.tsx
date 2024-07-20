@@ -36,7 +36,7 @@ function LicensesList({ profileId }: { profileId?: string }) {
         const { data: profile } = await supabase
           .from("users")
           .select("user_id, birth, name")
-          .eq("id", user.email)
+          .eq("id", user?.email)
           .single();
         setUserEmail(user.email || '');
         setUserBirth(profile?.birth || '');
@@ -151,7 +151,7 @@ function LicensesList({ profileId }: { profileId?: string }) {
 
   const handleCopyClipBoard = async () => {
     try {
-      await navigator.clipboard.writeText(`${window.location.origin}/profile/${userEmail}`);
+      await navigator.clipboard.writeText(`https://youcandoit-jiyoungs-projects-d3377a8b.vercel.app/profile/${userEmail}`);
       alert('공유 링크 복사가 복사되었습니다.');
     } catch (e) {
       alert('복사에 실패하였습니다');

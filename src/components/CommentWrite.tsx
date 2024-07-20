@@ -31,6 +31,7 @@ export default function CommentWrite({paramsId}: Props) {
     if(res.status === 200) {
       content.current.value=""
       location.reload()
+      return 
     }
   }
 

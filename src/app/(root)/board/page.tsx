@@ -19,10 +19,6 @@ export default function Board() {
   const ITEMS_PER_PAGE = 10;
   
   useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/login')
-      return
-    }
     const fetchData = async () => {
       const {data} = await axios.get("/api/posts");
       setItems(data);
